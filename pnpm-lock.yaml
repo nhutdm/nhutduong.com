@@ -2,11 +2,13 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/tailwind': ^3.1.0
+  '@fontsource/inter': ^4.5.15
   astro: ^2.1.2
   tailwindcss: ^3.2.7
 
 dependencies:
   '@astrojs/tailwind': 3.1.0_5fkwwuzubt6borit3q7k7y2k74
+  '@fontsource/inter': 4.5.15
   astro: 2.1.2
   tailwindcss: 3.2.7
 
@@ -559,6 +561,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@fontsource/inter/4.5.15:
+    resolution: {integrity: sha512-FzleM9AxZQK2nqsTDtBiY0PMEVWvnKnuu2i09+p6DHvrHsuucoV2j0tmw+kAT3L4hvsLdAIDv6MdGehsPIdT+Q==}
+    dev: false
 
   /@jridgewell/gen-mapping/0.1.1:
     resolution: {integrity: sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==}
