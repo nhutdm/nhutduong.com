@@ -4,8 +4,10 @@ import compress from "astro-compress";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
+import { SITE } from "./src/config";
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://nhutduong.com/",
-  integrations: [compress(), sitemap(), tailwind()]
+  site: SITE.website,
+  integrations: [compress(), sitemap(), tailwind()],
 });
