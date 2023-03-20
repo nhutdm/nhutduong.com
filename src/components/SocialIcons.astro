@@ -1,0 +1,22 @@
+---
+import { SOCIALS } from "@config";
+import socialIcons from "@assets/socialIcons";
+---
+
+<ul class="flex gap-4">
+  {
+    SOCIALS.map((social) => (
+      <li>
+        <a
+          target="_blank"
+          rel="me noopener noreferrer"
+          aria-label={social.name}
+          href={social.href}
+          class="flex w-5 h-5 text-zinc-600 hover:text-zinc-500 dark:text-zinc-300 dark:hover:text-zinc-400"
+        >
+          <Fragment set:html={socialIcons[social.name]} />
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -1,4 +1,4 @@
-import type { Site } from "./types";
+import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
   website: "https://nhutduong.com/",
@@ -6,3 +6,18 @@ export const SITE: Site = {
   title: "Nhut Duong",
   desc: "A Vietnam-based full-stack web developer who specializes in JavaScript, AngularJS, React, Node.js, PHP and WordPress.",
 };
+
+export const SOCIALS: SocialObjects = [
+  {
+    name: "Twitter",
+    href: "https://twitter.com/nhutdm",
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/nhutdm",
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/nhutdm/",
+  },
+];
