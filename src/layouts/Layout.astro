@@ -1,25 +1,54 @@
 ---
 import "@fontsource/inter/variable.css";
 
+import { SEO } from "astro-seo";
+
+import { SITE } from "@config";
+
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
 export interface Props {
-  title: string;
+  author?: string;
+  title?: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const {
+  author = SITE.author,
+  title = SITE.title,
+  description = SITE.desc,
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <SEO
+      title={title}
+      description={description}
+      extend={{
+        link: [
+          { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+          { rel: "sitemap", href: "/sitemap-index.xml" },
+        ],
+        meta: [
+          {
+            name: "viewport",
+            content: "width=device-width",
+          },
+          {
+            name: "generator",
+            content: Astro.generator,
+          },
+          {
+            name: "author",
+            content: author,
+          },
+        ],
+      }}
+    />
   </head>
   <body class="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-900">
     <Header />
