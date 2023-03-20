@@ -31,12 +31,18 @@ const {
       extend={{
         link: [
           { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+          { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+          { rel: "manifest", href: "/manifest.webmanifest" },
           { rel: "sitemap", href: "/sitemap-index.xml" },
         ],
         meta: [
           {
             name: "viewport",
             content: "width=device-width",
+          },
+          {
+            name: "theme-color",
+            content: "#ffffff",
           },
           {
             name: "generator",
