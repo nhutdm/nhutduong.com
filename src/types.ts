@@ -3,6 +3,7 @@ export type Site = {
   author: string;
   title: string;
   desc: string;
+  ogImage: string;
 };
 
 export type SocialObjects = {

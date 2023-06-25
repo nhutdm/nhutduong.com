@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/inter';
+import "@fontsource-variable/inter";
 
 import { SEO } from "astro-seo";
 
@@ -12,13 +12,22 @@ export interface Props {
   author?: string;
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   author = SITE.author,
   title = SITE.title,
   description = SITE.desc,
+  ogImage = SITE.ogImage,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+
+const socialImageURL = new URL(
+  ogImage ? ogImage : SITE.ogImage,
+  Astro.url.origin
+).href;
 ---
 
 <!DOCTYPE html>
@@ -28,6 +37,14 @@ const {
     <SEO
       title={title}
       description={description}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: socialImageURL,
+          url: canonicalURL,
+        },
+      }}
       extend={{
         link: [
           { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
