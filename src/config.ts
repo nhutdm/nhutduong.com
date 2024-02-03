@@ -10,7 +10,7 @@ export const SITE: Site = {
 
 export const SOCIALS: SocialObjects = [
   {
-    name: "Twitter",
+    name: "X",
     href: "https://twitter.com/nhutdm",
   },
   {
