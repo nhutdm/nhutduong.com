@@ -15,4 +15,4 @@ export type SocialIcons = {
   [social in SocialMedia]: string;
 };
 
-export type SocialMedia = "GitHub" | "LinkedIn" | "Twitter";
+export type SocialMedia = "GitHub" | "LinkedIn" | "X";
