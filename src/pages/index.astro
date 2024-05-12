@@ -1,0 +1,21 @@
+---
+import { SITE } from "@config";
+import Layout from "../layouts/Layout.astro";
+import SocialIcons from "../components/SocialIcons.astro";
+---
+
+<Layout title={SITE.title}>
+  <section class="flex flex-1 items-center justify-center">
+    <div class="w-full max-w-3xl px-4 py-12">
+      <div class="prose sm:prose-lg prose-zinc dark:prose-invert">
+        <h1>Full Stack Developer and Consultant.</h1>
+        <p>
+          Hello, I'm Nhut Duong, a full stack developer and consultant with a
+          passion for creating dynamic web solutions. At Bosch Digital in
+          Vietnam, I lead projects that exceed client expectations.
+        </p>
+      </div>
+      <div class="mt-8 lg:mt-10"><SocialIcons /></div>
+    </div>
+  </section>
+</Layout>

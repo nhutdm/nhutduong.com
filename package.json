@@ -1,0 +1,24 @@
+{
+  "name": "nhutduong.com",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.1.4",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource-variable/inter": "^5.0.18",
+    "@playform/compress": "^0.0.4",
+    "@tailwindcss/typography": "^0.5.13",
+    "astro": "^4.8.2",
+    "astro-seo": "^0.8.3",
+    "sharp": "^0.33.3",
+    "tailwindcss": "^3.4.3"
+  },
+  "packageManager": "pnpm@9.1.0+sha512.67f5879916a9293e5cf059c23853d571beaf4f753c707f40cb22bed5fb1578c6aad3b6c4107ccb3ba0b35be003eb621a16471ac836c87beb53f9d54bb4612724"
+}
