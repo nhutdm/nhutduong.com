@@ -11,7 +11,7 @@ export const SITE: Site = {
 export const SOCIALS: SocialObjects = [
   {
     name: "X",
-    href: "https://twitter.com/nhutdm",
+    href: "https://x.com/nhutdm",
   },
   {
     name: "GitHub",
