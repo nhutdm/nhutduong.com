@@ -1,0 +1,30 @@
+---
+import "@fontsource-variable/inter";
+import { ViewTransitions } from "astro:transitions";
+import BaseHead, {
+  type Props as HeadProps,
+} from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+export type Props = HeadProps;
+
+const { ...head } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="antialiased break-words">
+  <head>
+    <BaseHead {...head} />
+    <ViewTransitions />
+  </head>
+  <body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+    <div class="flex flex-col min-h-screen px-4">
+      <Header />
+      <main class="grow w-full max-w-3xl mx-auto pt-20 sm:pt-24 lg:pt-32">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

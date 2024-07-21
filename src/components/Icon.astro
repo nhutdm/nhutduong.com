@@ -1,0 +1,17 @@
+---
+import GitHub from "../icons/GitHub.astro";
+import LinkedIn from "../icons/LinkedIn.astro";
+import X from "../icons/X.astro";
+
+const iconMap: { [key: string]: any } = {
+  github: GitHub,
+  linkedin: LinkedIn,
+  x: X,
+};
+
+const { icon, class: className } = Astro.props;
+
+const IconComponent = icon ? iconMap[icon] : null;
+---
+
+{IconComponent && <IconComponent class={className} />}
