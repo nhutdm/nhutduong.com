@@ -31,7 +31,7 @@ export type SiteConfig = {
 const siteConfig: SiteConfig = {
   title: "Nhut Duong",
   description:
-    "A Vietnam-based full-stack web developer who specializes in JavaScript, AngularJS, React, Node.js, PHP and WordPress.",
+    "I'm a full stack developer and consultant based in Ho Chi Minh City, Vietnam, obsessed with crafting seamless, impactful digital solutions.",
   author: "Nhut Duong",
   twitter: "@nhutdm",
   image: {
@@ -56,8 +56,8 @@ const siteConfig: SiteConfig = {
     },
   ],
   hero: {
-    title: "Full Stack Developer and Consultant.",
-    text: "Hello, I'm Nhut Duong, a full stack developer and consultant with a passion for creating dynamic web solutions. At Bosch Digital in Vietnam, I lead projects that exceed client expectations.",
+    title: "Hey, I'm Nhut.",
+    text: "I'm a full stack developer and consultant based in Ho Chi Minh City, Vietnam, obsessed with creating innovative digital solutions. I blend sleek front-end design with robust back-end development to build seamless, impactful experiences.",
   },
 };
 
