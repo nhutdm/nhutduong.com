@@ -1,9 +1,7 @@
 ---
 import siteConfig from "../data/site-config";
-import SocialLink from "./SocialLink.astro";
 
 const hero = siteConfig.hero;
-const socialLinks = siteConfig.socialLinks || [];
 ---
 
 {
@@ -11,16 +9,6 @@ const socialLinks = siteConfig.socialLinks || [];
     <section class="max-w-none prose prose-zinc dark:prose-invert sm:prose-lg">
       {hero.title && <h1>{hero.title}</h1>}
       {hero.text && <p>{hero.text}</p>}
-      {socialLinks.length > 0 && (
-        <div class="flex flex-wrap gap-4">
-          {(siteConfig.socialLinks || []).map((link) => (
-            <SocialLink
-              {...link}
-              class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
-            />
-          ))}
-        </div>
-      )}
     </section>
   )
 }
