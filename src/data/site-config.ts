@@ -37,7 +37,7 @@ const siteConfig: SiteConfig = {
   twitter: "@nhutdm",
   image: {
     src: "/og.png",
-    alt: "Nhut Duong",
+    alt: "Nhut Duong - Full Stack Developer and Consultant in Ho Chi Minh City, Vietnam",
   },
   primaryNavLinks: [
     {
