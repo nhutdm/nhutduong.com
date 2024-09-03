@@ -24,6 +24,7 @@ export type SiteConfig = {
   author: string;
   twitter: string;
   image?: Image;
+  primaryNavLinks?: Link[];
   socialLinks?: SocialLink[];
   hero?: Hero;
 };
@@ -38,6 +39,12 @@ const siteConfig: SiteConfig = {
     src: "/og.png",
     alt: "Nhut Duong",
   },
+  primaryNavLinks: [
+    {
+      text: "About",
+      href: "/about",
+    },
+  ],
   socialLinks: [
     {
       text: "X",

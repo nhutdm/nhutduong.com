@@ -1,0 +1,27 @@
+---
+import NavLink from "./NavLink.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import siteConfig from "../data/site-config";
+
+const navLinks = siteConfig.primaryNavLinks || [];
+---
+
+<nav class="flex items-center">
+  {navLinks.length > 0 && (
+    <div class="pr-4">
+      <ul class="flex gap-4">
+        {navLinks.map((link) => (
+          <li>
+            <NavLink
+              class="font-medium py-1 text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200"
+              href={link.href}
+            >
+              {link.text}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+  <ThemeToggle />
+</nav>
