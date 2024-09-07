@@ -6,7 +6,7 @@ const hero = siteConfig.hero;
 
 {
   (hero?.title || hero?.text) && (
-    <section class="max-w-none prose prose-zinc dark:prose-invert sm:prose-lg">
+    <section class="prose prose-zinc max-w-none dark:prose-invert sm:prose-lg">
       {hero.title && <h1>{hero.title}</h1>}
       {hero.text && <p>{hero.text}</p>}
     </section>

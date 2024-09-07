@@ -5,11 +5,11 @@ const { text, href, icon, class: className } = Astro.props;
 ---
 
 <a
-  class:list={["w-5 h-5 inline-flex items-center justify-center", className]}
+  class:list={["inline-flex h-5 w-5 items-center justify-center", className]}
   href={href}
   target="_blank"
   rel="noopener noreferer"
   aria-label={text}
 >
-  {icon && <Icon icon={icon} class="w-5 h-5 fill-current overflow-visible" />}
+  {icon && <Icon icon={icon} class="h-5 w-5 overflow-visible fill-current" />}
 </a>

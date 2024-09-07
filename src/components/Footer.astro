@@ -6,21 +6,23 @@ const currentYear = new Date().getFullYear();
 const socialLinks = siteConfig.socialLinks || [];
 ---
 
-<footer class="w-full max-w-4xl mx-auto py-8 flex items-center justify-between">
+<footer class="mx-auto flex w-full max-w-4xl items-center justify-between py-8">
   <div class="flex">
     <p class="text-xs text-zinc-600 dark:text-zinc-400">
       &#169; {currentYear}
       {siteConfig.title}
     </p>
   </div>
-  {socialLinks.length > 0 && (
-    <div class="flex flex-wrap gap-4">
-      {(siteConfig.socialLinks || []).map((link) => (
-        <SocialLink
-          {...link}
-          class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300"
-        />
-      ))}
-    </div>
-  )}
+  {
+    socialLinks.length > 0 && (
+      <div class="flex flex-wrap gap-4">
+        {(siteConfig.socialLinks || []).map((link) => (
+          <SocialLink
+            {...link}
+            class="text-zinc-600 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+          />
+        ))}
+      </div>
+    )
+  }
 </footer>
