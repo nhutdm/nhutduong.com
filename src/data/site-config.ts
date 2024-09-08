@@ -10,7 +10,7 @@ export type Link = {
 };
 
 export type SocialLink = Link & {
-  icon: "github" | "linkedin" | "x";
+  icon: "github" | "linkedin" | "rss" | "x";
 };
 
 export type Hero = {
@@ -44,8 +44,17 @@ const siteConfig: SiteConfig = {
       text: "About",
       href: "/about",
     },
+    {
+      text: "Blog",
+      href: "/blog",
+    },
   ],
   socialLinks: [
+    {
+      text: "RSS",
+      href: "https://nhutduong.com/rss.xml",
+      icon: "rss",
+    },
     {
       text: "X",
       href: "https://x.com/nhutdm",

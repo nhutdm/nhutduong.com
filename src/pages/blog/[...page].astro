@@ -1,0 +1,27 @@
+---
+import type { GetStaticPathsOptions, Page } from "astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostPreview from "../../components/PostPreview.astro";
+import { sortItemsByDateDesc } from "../../utils/data-utils";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
+  return paginate(posts, { pageSize: 4 });
+}
+
+type Props = { page: Page<CollectionEntry<"blog">> };
+
+const { page } = Astro.props;
+const blog = page.data;
+---
+
+<BaseLayout
+  title="Blog"
+  description="Insights from a full stack developer and consultant. Explore tech tips, coding journeys, and advice for developers and tech enthusiasts."
+>
+  <section>
+    <h1>Blog</h1>
+    {blog.map((post) => <PostPreview post={post} class="mb-10 sm:mb-12" />)}
+  </section>
+</BaseLayout>
