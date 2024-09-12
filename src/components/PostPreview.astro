@@ -1,11 +1,13 @@
 ---
 import { type CollectionEntry } from "astro:content";
 import FormattedDate from "./FormattedDate.astro";
+import { getReadingTime } from "../utils/reading-time";
 
 type Props = { post: CollectionEntry<"blog">; class?: string };
 
 const { post, class: className } = Astro.props;
 const { title, publishDate, updatedDate, excerpt } = post.data;
+const readingTime = getReadingTime(post.body);
 ---
 
 <article class:list={["mb-12", className]}>
@@ -14,11 +16,11 @@ const { title, publishDate, updatedDate, excerpt } = post.data;
       <a class="no-underline" href={`/blog/${post.slug}/`}>{title}</a>
     </h2>
     <p class="text-sm">
-      <FormattedDate date={publishDate} />
+      <FormattedDate date={publishDate} /> · {readingTime}
       {
         updatedDate && (
           <>
-            {" | "}
+            {" · "}
             <span>
               Updated on <FormattedDate date={updatedDate} />
             </span>

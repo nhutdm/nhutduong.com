@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { sortItemsByDateDesc } from "../../utils/data-utils";
+import { getReadingTime } from "../../utils/reading-time";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
@@ -18,6 +19,7 @@ type Props = { post: CollectionEntry<"blog"> };
 
 const { post } = Astro.props;
 const { title, publishDate, updatedDate, excerpt, seo } = post.data;
+const readingTime = getReadingTime(post.body);
 const { Content } = await post.render();
 ---
 
@@ -31,11 +33,11 @@ const { Content } = await post.render();
     <header>
       <h1>{title}</h1>
       <p class="text-sm">
-        <FormattedDate date={publishDate} />
+        <FormattedDate date={publishDate} /> · {readingTime}
         {
           updatedDate && (
             <>
-              {" | "}
+              {" · "}
               <span>
                 Updated on <FormattedDate date={updatedDate} />
               </span>
