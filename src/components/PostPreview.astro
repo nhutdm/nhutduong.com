@@ -10,7 +10,9 @@ const { title, publishDate, updatedDate, excerpt } = post.data;
 const readingTime = getReadingTime(post.body);
 ---
 
-<article class:list={["mb-12", className]}>
+<article
+  class:list={["prose prose-zinc dark:prose-invert sm:prose-lg", className]}
+>
   <header>
     <h2>
       <a class="no-underline" href={`/blog/${post.slug}/`}>{title}</a>
