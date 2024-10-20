@@ -8,7 +8,7 @@ type Props = ButtonProps | AnchorProps;
 
 const { href, class: className, ...rest } = Astro.props;
 const buttonClasses =
-  "inline-flex justify-center py-3 px-4 text-sm no-underline rounded-full text-zinc-50 dark:text-zinc-950 bg-zinc-800 dark:bg-zinc-200 hover:bg-zinc-700 dark:hover:bg-zinc-300";
+  "inline-flex justify-center py-3 px-4 text-sm no-underline rounded-md bg-primary text-primary-foreground hover:bg-primary/90";
 ---
 
 {

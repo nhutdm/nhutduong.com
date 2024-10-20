@@ -21,9 +21,9 @@ const blog = page.data;
   description="Insights from a full stack developer and consultant. Explore tech tips, coding journeys, and advice for developers and tech enthusiasts."
 >
   <section>
-    <div class="prose prose-zinc dark:prose-invert sm:prose-lg">
-      <h1>Blog</h1>
+    <h1>Blog</h1>
+    <div>
+      {blog.map((post) => <PostPreview post={post} class="mb-10 sm:mb-12" />)}
     </div>
-    {blog.map((post) => <PostPreview post={post} class="mb-10 sm:mb-12" />)}
   </section>
 </BaseLayout>

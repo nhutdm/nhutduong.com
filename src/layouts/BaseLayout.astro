@@ -17,12 +17,12 @@ const { ...head } = Astro.props;
     <BaseHead {...head} />
     <ViewTransitions />
   </head>
-  <body
-    class="bg-zinc-50 text-zinc-900 selection:bg-zinc-600 selection:text-zinc-100 dark:bg-zinc-950 dark:text-zinc-100 dark:selection:bg-zinc-600 dark:selection:text-zinc-100"
-  >
+  <body>
     <div class="flex min-h-screen flex-col px-4">
       <Header />
-      <main class="mx-auto w-full max-w-3xl grow py-20 sm:py-24 lg:py-32">
+      <main
+        class="prose mx-auto w-full max-w-3xl grow py-20 sm:prose-lg sm:py-24 lg:py-32"
+      >
         <slot />
       </main>
       <Footer />

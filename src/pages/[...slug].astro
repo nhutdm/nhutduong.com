@@ -24,10 +24,12 @@ const { Content } = await page.render();
   description={seo?.description}
   image={seo?.image}
 >
-  <article class="prose prose-zinc dark:prose-invert sm:prose-lg">
+  <article>
     <header>
       <h1>{title}</h1>
     </header>
-    <Content />
+    <div>
+      <Content />
+    </div>
   </article>
 </BaseLayout>
