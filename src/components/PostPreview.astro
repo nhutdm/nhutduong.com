@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry } from "astro:content";
-import FormattedDate from "./FormattedDate.astro";
-import { getReadingTime } from "../utils/reading-time";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { getReadingTime } from "@/utils/reading-time";
 
 type Props = { post: CollectionEntry<"blog">; class?: string };
 

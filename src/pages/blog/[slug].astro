@@ -1,9 +1,9 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
-import { sortItemsByDateDesc } from "../../utils/data-utils";
-import { getReadingTime } from "../../utils/reading-time";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { sortItemsByDateDesc } from "@/utils/data-utils";
+import { getReadingTime } from "@/utils/reading-time";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
