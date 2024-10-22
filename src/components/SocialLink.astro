@@ -4,12 +4,14 @@ import Icon from "@/components/Icon.astro";
 const { text, href, icon, class: className } = Astro.props;
 ---
 
-<a
-  class:list={["inline-flex h-5 w-5 items-center justify-center", className]}
-  href={href}
-  target="_blank"
-  rel="noopener noreferer"
-  aria-label={text}
->
-  {icon && <Icon icon={icon} class="h-5 w-5 overflow-visible fill-current" />}
+<a href={href} target="_blank" rel="noopener noreferer" aria-label={text}>
+  <div
+    class:list={[
+      "transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+      className,
+    ]}
+  >
+    {icon && <Icon icon={icon} class="h-4 w-4 fill-current" />}
+    <span class="sr-only">{text}</span>
+  </div>
 </a>
