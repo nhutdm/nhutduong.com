@@ -1,0 +1,22 @@
+---
+import siteConfig from '@/data/site-config';
+import NavLink from '@/components/NavLink.astro';
+import ThemeToggle from '@/components/ThemeToggle.astro';
+
+const navLinks = siteConfig.primaryNavLinks || [];
+---
+
+<nav class="flex items-center gap-4 text-sm lg:gap-6">
+  {
+    navLinks.length > 0 && (
+      <>
+        {navLinks.map((link) => (
+          <NavLink class="transition-colors hover:text-foreground/80" href={link.href}>
+            {link.text}
+          </NavLink>
+        ))}
+      </>
+    )
+  }
+  <ThemeToggle />
+</nav>

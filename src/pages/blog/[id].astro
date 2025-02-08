@@ -1,0 +1,63 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Badge from '@/components/Badge.astro';
+import FormattedDate from '@/components/FormattedDate.astro';
+import { slugify } from '@/utils/common-utils';
+import { sortItemsByDateDesc } from '@/utils/data-utils';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: {
+      post,
+    },
+  }));
+}
+
+type Props = { post: CollectionEntry<'blog'> };
+
+const { post } = Astro.props;
+const { title, publishDate, updatedDate, excerpt, tags = [], seo } = post.data;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={seo?.title ?? title} description={seo?.description ?? excerpt} image={seo?.image} pageType="article">
+  <article>
+    <header>
+      <h1>{title}</h1>
+      <div class="not-prose flex flex-wrap items-center gap-x-5 gap-y-2">
+        <span class="text-sm text-foreground/60">
+          {
+            updatedDate ? (
+              <>
+                Updated on <FormattedDate date={updatedDate} />
+              </>
+            ) : (
+              <>
+                Published on <FormattedDate date={publishDate} />
+              </>
+            )
+          }
+        </span>
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {
+            tags.length > 0 && (
+              <>
+                {tags.map((tag) => (
+                  <Badge>
+                    <a href={`/tag/${slugify(tag)}`}>{tag}</a>
+                  </Badge>
+                ))}
+              </>
+            )
+          }
+        </div>
+      </div>
+    </header>
+    <div>
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

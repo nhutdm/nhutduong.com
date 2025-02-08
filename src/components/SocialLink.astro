@@ -1,0 +1,19 @@
+---
+import Button from '@/components/Button.astro';
+import Icon from '@/components/Icon.astro';
+
+const { text, href, icon, class: className } = Astro.props;
+---
+
+<Button
+  variant="ghost"
+  size="icon"
+  class={className}
+  href={href}
+  target="_blank"
+  rel="noopener noreferer"
+  aria-label={text}
+>
+  {icon && <Icon icon={icon} class="h-4 w-4 fill-current" />}
+  <span class="sr-only">{text}</span>
+</Button>

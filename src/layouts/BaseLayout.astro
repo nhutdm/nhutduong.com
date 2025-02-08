@@ -1,0 +1,29 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/newsreader';
+import { ClientRouter } from 'astro:transitions';
+import BaseHead, { type Props as HeadProps } from '@/components/BaseHead.astro';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+
+export type Props = HeadProps;
+
+const { ...head } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="break-words antialiased">
+  <head>
+    <BaseHead {...head} />
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="flex min-h-screen flex-col px-4">
+      <Header />
+      <main class="prose mx-auto w-full max-w-3xl grow py-20 sm:prose-lg sm:py-24 lg:py-32">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
