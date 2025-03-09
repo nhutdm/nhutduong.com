@@ -11,7 +11,7 @@ const navLinks = siteConfig.primaryNavLinks || [];
     navLinks.length > 0 && (
       <>
         {navLinks.map((link) => (
-          <NavLink class="transition-colors hover:text-foreground/80" href={link.href}>
+          <NavLink class="hover:text-foreground/80 transition-colors" href={link.href}>
             {link.text}
           </NavLink>
         ))}
