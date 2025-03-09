@@ -18,6 +18,14 @@ export type Hero = {
   text?: string;
 };
 
+export type Giscus = {
+  repo: string;
+  repoId: string;
+  category: string;
+  categoryId: string;
+  mapping: string;
+};
+
 export type SiteConfig = {
   title: string;
   description: string;
@@ -27,6 +35,7 @@ export type SiteConfig = {
   primaryNavLinks?: Link[];
   socialLinks?: SocialLink[];
   hero?: Hero;
+  giscus?: Giscus;
 };
 
 const siteConfig: SiteConfig = {
@@ -74,6 +83,13 @@ const siteConfig: SiteConfig = {
   hero: {
     title: "Hey, I'm Nhut.",
     text: "I'm a full stack developer and consultant based in Ho Chi Minh City, Vietnam, obsessed with creating innovative digital solutions. I blend sleek front-end design with robust back-end development to build seamless, impactful experiences.",
+  },
+  giscus: {
+    repo: 'nhutdm/nhutduong.com',
+    repoId: 'R_kgDOMhNiEA',
+    category: 'General',
+    categoryId: 'DIC_kwDOMhNiEM4CnNdI',
+    mapping: 'pathname',
   },
 };
 
