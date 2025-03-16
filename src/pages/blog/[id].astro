@@ -21,10 +21,16 @@ type Props = { post: CollectionEntry<'blog'> };
 
 const { post } = Astro.props;
 const { title, publishDate, updatedDate, excerpt, tags = [], seo } = post.data;
+const ogImage = { src: new URL(`og/${post.id}.png`, Astro.site).toString(), alt: title };
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={seo?.title ?? title} description={seo?.description ?? excerpt} image={seo?.image} pageType="article">
+<BaseLayout
+  title={seo?.title ?? title}
+  description={seo?.description ?? excerpt}
+  image={seo?.image ?? ogImage}
+  pageType="article"
+>
   <article>
     <header>
       <h1>{title}</h1>

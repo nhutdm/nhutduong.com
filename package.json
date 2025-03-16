@@ -20,17 +20,19 @@
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
     "@fontsource-variable/inter": "^5.2.5",
-    "@fontsource-variable/newsreader": "^5.2.5",
-    "@tailwindcss/vite": "^4.0.12",
-    "astro": "^5.4.2"
+    "@fontsource-variable/newsreader": "^5.2.6",
+    "@tailwindcss/vite": "^4.0.14",
+    "astro": "^5.5.2",
+    "astro-og-canvas": "^0.7.0",
+    "canvaskit-wasm": "^0.39.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^4.1.0",
+    "@astrojs/mdx": "^4.2.0",
     "@eslint/js": "^9.22.0",
     "@tailwindcss/typography": "^0.5.16",
-    "@typescript-eslint/eslint-plugin": "^8.26.0",
-    "@typescript-eslint/parser": "^8.26.0",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
     "astro-eslint-parser": "^1.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -43,9 +45,14 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "sharp": "^0.33.5",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.0.12",
+    "tailwindcss": "^4.0.14",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.26.0"
+    "typescript-eslint": "^8.26.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
