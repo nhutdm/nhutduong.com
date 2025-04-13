@@ -18,9 +18,9 @@ const { ...head } = Astro.props;
     <ClientRouter />
   </head>
   <body>
-    <div class="flex min-h-screen flex-col px-4">
+    <div class="flex min-h-screen flex-col px-4 md:px-8">
       <Header />
-      <main class="prose sm:prose-lg mx-auto w-full max-w-3xl grow py-20 sm:py-24 lg:py-32">
+      <main class="prose sm:prose-lg mx-auto w-full max-w-5xl grow py-20 sm:py-24 lg:py-32">
         <slot />
       </main>
       <Footer />
