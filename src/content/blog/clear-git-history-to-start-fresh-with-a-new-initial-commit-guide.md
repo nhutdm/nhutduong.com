@@ -98,7 +98,6 @@ Consider resetting history when:
    ```
 
 2. **Document Important Information**
-
    - Save relevant commit messages
    - Note any critical version tags
    - Record branch structures
