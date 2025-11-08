@@ -5,7 +5,7 @@ import siteConfig from '@/data/site-config';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
 import PostListItem from '@/components/PostListItem.astro';
-import { sortItemsByDateDesc } from '@/utils/data-utils.ts';
+import { sortItemsByDateDesc } from '@/utils/data-utils';
 
 const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
 const latestPosts = posts.slice(0, 5);

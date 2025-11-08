@@ -1,15 +1,7 @@
 ---
 import siteConfig from '@/data/site-config';
+import type { BaseHeadProps } from '@/types';
 import '@/styles/global.css';
-
-export type Props = {
-  title?: string;
-  description?: string;
-  author?: string;
-  twitter?: string;
-  image?: { src: string; alt?: string };
-  pageType?: 'website' | 'article';
-};
 
 const {
   description = '',
@@ -17,7 +9,7 @@ const {
   twitter = siteConfig.twitter,
   image = siteConfig.image,
   pageType = 'website',
-} = Astro.props;
+} = Astro.props as BaseHeadProps;
 const title = [Astro.props.title, siteConfig.title].filter(Boolean).join(' | ');
 const resolvedImage = image?.src
   ? {

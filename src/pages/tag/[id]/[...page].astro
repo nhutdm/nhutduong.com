@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPathsOptions, Page } from 'astro';
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { getCollection } from 'astro:content';
+import type { BlogPost, TagData } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostListItem from '@/components/PostListItem.astro';
 import { sortItemsByDateDesc, getAllTags, getPostsByTag } from '@/utils/data-utils';
@@ -9,7 +10,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
   const tags = getAllTags(posts);
 
-  return tags.flatMap((tag) => {
+  return tags.flatMap((tag: TagData) => {
     const filteredPosts = getPostsByTag(posts, tag.id);
     return paginate(filteredPosts, {
       params: { id: tag.id },
@@ -18,7 +19,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   });
 }
 
-type Props = { page: Page<CollectionEntry<'blog'>> };
+type Props = { page: Page<BlogPost> };
 
 const { page } = Astro.props;
 const blog = page.data;

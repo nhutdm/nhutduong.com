@@ -6,25 +6,30 @@ const giscusConfig = siteConfig.giscus;
 
 <div class="comments">
   <script is:inline data-astro-rerun define:vars={{ giscusConfig }}>
-    const getGiscusTheme = (bToggle) => {
-      const theme = localStorage.getItem('theme') || 'preferred_color_scheme';
-      if (bToggle) {
-        return theme === 'light' ? 'dark' : 'light';
-      }
-      return theme;
-    };
-    const setGiscusTheme = (bToggle) => {
-      function sendMessage(message) {
+    // Theme management utility
+    const ThemeManager = {
+      getTheme(bToggle = false) {
+        const theme = localStorage.getItem('theme') || 'preferred_color_scheme';
+        return bToggle ? (theme === 'light' ? 'dark' : 'light') : theme;
+      },
+
+      setTheme(bToggle = false) {
+        this.sendMessage({
+          setConfig: {
+            theme: this.getTheme(bToggle),
+          },
+        });
+      },
+
+      sendMessage(message) {
         const iframe = document.querySelector('iframe.giscus-frame');
         if (!iframe) return;
         iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: getGiscusTheme(bToggle),
-        },
-      });
+      },
     };
+
+    const getGiscusTheme = ThemeManager.getTheme.bind(ThemeManager);
+    const setGiscusTheme = ThemeManager.setTheme.bind(ThemeManager);
     const giscusAttributes = {
       src: 'https://giscus.app/client.js',
       'data-repo': giscusConfig.repo,
