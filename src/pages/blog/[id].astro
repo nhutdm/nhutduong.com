@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import type { BlogPost } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Badge from '@/components/Badge.astro';
+import { Badge } from '@/components/ui/badge';
 import Comments from '@/components/Comments.astro';
 import FormattedDate from '@/components/FormattedDate.astro';
 import TOC from '@/components/TOC.astro';
@@ -54,7 +54,7 @@ const { Content, headings } = await render(post);
           tags.length > 0 && (
             <>
               {tags.map((tag) => (
-                <Badge>
+                <Badge client:load>
                   <a href={`/tag/${slugify(tag)}`}>{tag}</a>
                 </Badge>
               ))}
