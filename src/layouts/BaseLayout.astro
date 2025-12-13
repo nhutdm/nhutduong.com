@@ -4,12 +4,20 @@ import '@fontsource-variable/newsreader';
 import { ClientRouter } from 'astro:transitions';
 import type { BaseHeadProps } from '@/types';
 import BaseHead from '@/components/BaseHead.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
+import { shouldShowBreadcrumbs } from '@/utils/breadcrumb-utils';
 
-export type Props = BaseHeadProps;
+export type Props = BaseHeadProps & {
+  showBreadcrumbs?: boolean;
+};
 
-const { ...head } = Astro.props;
+const props = Astro.props;
+const { showBreadcrumbs = true } = props;
+const { ...head } = props;
+
+const shouldShow = showBreadcrumbs && shouldShowBreadcrumbs(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -22,6 +30,13 @@ const { ...head } = Astro.props;
     <div class="flex min-h-screen flex-col px-4 md:px-8">
       <Header />
       <main class="prose sm:prose-lg mx-auto w-full max-w-5xl grow py-20 sm:py-24 lg:py-32">
+        {
+          shouldShow && (
+            <div class="not-prose mb-8">
+              <Breadcrumb />
+            </div>
+          )
+        }
         <slot />
       </main>
       <Footer />

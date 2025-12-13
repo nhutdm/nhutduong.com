@@ -1,0 +1,41 @@
+---
+import { generateBreadcrumbItems, generateBreadcrumbStructuredData } from '@/utils/breadcrumb-utils';
+import { cn } from '@/lib/utils';
+
+export interface Props {
+  className?: string;
+  currentPath?: string;
+}
+
+const { className, currentPath = Astro.url.pathname } = Astro.props;
+
+const breadcrumbItems = await generateBreadcrumbItems(currentPath);
+const structuredData = generateBreadcrumbStructuredData(breadcrumbItems);
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+<nav aria-label="Breadcrumb" class={cn('flex items-center space-x-1 text-sm text-muted-foreground py-2', className)}>
+  <ol class="flex items-center space-x-1">
+    {
+      breadcrumbItems.map((item, index) => (
+        <li class="flex items-center space-x-1">
+          {item.href ? (
+            <a href={item.href} class="hover:text-foreground transition-colors">
+              {item.label}
+            </a>
+          ) : (
+            <span class="text-foreground font-normal" aria-current="page">
+              {item.label}
+            </span>
+          )}
+          {index < breadcrumbItems.length - 1 && (
+            <span class="mx-2" aria-hidden="true">
+              /
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
