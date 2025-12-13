@@ -51,15 +51,15 @@ export async function generateBreadcrumbItems(path: string): Promise<BreadcrumbI
       });
     }
     // Handle tag routes
-    else if (segment === 'tag') {
+    else if (segment === 'tags') {
       items.push({
         label: 'Tags',
-        href: '/tag',
-        isCurrent: false,
+        href: isLast ? undefined : '/tags',
+        isCurrent: isLast,
       });
     }
-    // Handle specific tag (last segment after tag)
-    else if (prevSegment === 'tag' && isLast) {
+    // Handle specific tag (last segment after tags)
+    else if (prevSegment === 'tags' && isLast) {
       const tagName = await getTagName(segment);
       items.push({
         label: tagName || formatLabel(segment),

@@ -25,7 +25,7 @@ const { title, publishDate, tags = [] } = post.data;
             <>
               {tags.map((tag) => (
                 <Badge client:load>
-                  <a href={`/tag/${slugify(tag)}`}>{tag}</a>
+                  <a href={`/tags/${slugify(tag)}`}>{tag}</a>
                 </Badge>
               ))}
             </>
