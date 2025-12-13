@@ -16,10 +16,16 @@ type Props = { page: CollectionEntry<'pages'> };
 
 const { page } = Astro.props;
 const { title, seo } = page.data;
+const isAboutPage = page.id === 'about';
 const { Content } = await render(page);
 ---
 
-<BaseLayout title={seo?.title ?? title} description={seo?.description} image={seo?.image}>
+<BaseLayout
+  title={seo?.title ?? title}
+  description={seo?.description}
+  image={seo?.image}
+  includePersonSchema={isAboutPage}
+>
   <article>
     <header>
       <h1>{title}</h1>

@@ -1,11 +1,6 @@
+import type { BreadcrumbItem } from '@/types';
 import { slugify } from '@/utils/common-utils';
 import { getCollection } from 'astro:content';
-
-export interface BreadcrumbItem {
-  label: string;
-  href?: string;
-  isCurrent: boolean;
-}
 
 /**
  * Parse URL path and generate breadcrumb items with max 3 levels

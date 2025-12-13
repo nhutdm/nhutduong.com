@@ -8,6 +8,7 @@ import FormattedDate from '@/components/FormattedDate.astro';
 import TOC from '@/components/TOC.astro';
 import { slugify } from '@/utils/common-utils';
 import { sortItemsByDateDesc } from '@/utils/data-utils';
+import { createBlogPostingSchema, createPersonSchema } from '@/utils/schema-utils';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
@@ -24,6 +25,12 @@ type Props = { post: BlogPost };
 const { post } = Astro.props;
 const { title, publishDate, updatedDate, excerpt, tags = [], seo } = post.data;
 const ogImage = { src: new URL(`og/${post.id}.png`, Astro.site).toString(), alt: title };
+const authorSchema = createPersonSchema();
+const blogPostingSchema = createBlogPostingSchema(
+  post,
+  new URL(Astro.request.url, Astro.site).toString(),
+  authorSchema
+);
 const { Content, headings } = await render(post);
 ---
 
@@ -32,6 +39,7 @@ const { Content, headings } = await render(post);
   description={seo?.description ?? excerpt}
   image={seo?.image ?? ogImage}
   pageType="article"
+  customSchemas={[blogPostingSchema]}
 >
   <div>
     <h1>{title}</h1>
