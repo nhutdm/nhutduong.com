@@ -65,7 +65,7 @@ export async function generateBreadcrumbItems(path: string): Promise<BreadcrumbI
     // Handle pagination
     else if (/^\d+$/.test(segment)) {
       items.push({
-        label: `Page ${segment}`,
+        label: `${segment}`,
         href: undefined,
         isCurrent: true,
       });
