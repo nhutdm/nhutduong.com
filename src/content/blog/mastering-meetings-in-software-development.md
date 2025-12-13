@@ -28,28 +28,24 @@ Meetings serve as the primary mechanism for achieving these collaborative goals.
 ### Types of Meetings in Software Development
 
 1. **Daily Stand-ups**
-
    - Quick, time-boxed synchronization meetings
    - Typically 15 minutes or less
    - Focus on progress, blockers, and immediate next steps
    - Best when they remain focused and action-oriented
 
 2. **Sprint Planning**
-
    - Strategic sessions for breaking down work
    - Involves entire development team
    - Requires active participation from product owners and developers
    - Goal: Create a clear, achievable plan for the upcoming sprint
 
 3. **Retrospectives**
-
    - Critical for continuous improvement
    - Reflect on what worked, what didn't, and how to improve
    - Should be a safe space for honest, constructive feedback
    - Often overlooked, but crucial for team growth
 
 4. **Technical Design Reviews**
-
    - Deep-dive sessions into architectural decisions
    - Involve senior developers and technical leads
    - Prevent potential technical debt
@@ -65,13 +61,11 @@ Meetings serve as the primary mechanism for achieving these collaborative goals.
 ### For Individual Contributors
 
 1. **Prepare Thoroughly**
-
    - Have a clear agenda
    - Bring specific discussion points
    - Come with potential solutions, not just problems
 
 2. **Practice Active Participation**
-
    - Ask clarifying questions
    - Offer constructive input
    - Listen actively to understand, not just to respond
@@ -84,13 +78,11 @@ Meetings serve as the primary mechanism for achieving these collaborative goals.
 ### For Team Leads and Managers
 
 1. **Set Clear Expectations**
-
    - Define the purpose of each meeting type
    - Create and distribute agendas in advance
    - Establish and enforce meeting norms
 
 2. **Leverage Technology**
-
    - Use collaborative tools like Miro, Mural for visual collaboration
    - Record key decisions and action items
    - Utilize asynchronous communication when possible
@@ -119,13 +111,11 @@ Research suggests that unnecessary meetings can cost organizations hundreds of t
 ### Skills to Develop
 
 1. **Communication**
-
    - Learn to articulate technical concepts clearly
    - Practice explaining complex ideas succinctly
    - Develop empathy for non-technical stakeholders
 
 2. **Facilitation**
-
    - Learn techniques for guiding productive discussions
    - Understand how to manage group dynamics
    - Practice keeping conversations on track

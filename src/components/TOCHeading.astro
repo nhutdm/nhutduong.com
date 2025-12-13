@@ -1,6 +1,6 @@
 ---
-import { type TocItem } from '@/utils/toc-utils.ts';
-import { cn } from '@/utils/ui-utils';
+import type { TocItem } from '@/types';
+import { cn } from '@/lib/utils';
 
 interface Props {
   heading: TocItem;
@@ -8,13 +8,13 @@ interface Props {
 
 const {
   heading: { depth, slug, subheadings, text },
-} = Astro.props;
+} = Astro.props as Props;
 ---
 
 <li>
   <div class="relative">
     <span
-      class="[&.highlight-bg]:bg-primary [&.readed]:bg-input absolute top-[5%] w-[2px] rounded transition-colors duration-300"
+      class="[&.highlight-bg]:bg-primary [&.readed]:bg-input absolute top-[5%] w-0.5 rounded transition-colors duration-300"
     ></span>
     <a
       aria-label={`Scroll to section: ${text}`}

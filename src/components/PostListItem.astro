@@ -1,17 +1,10 @@
 ---
-import { type CollectionEntry } from 'astro:content';
-import Badge from '@/components/Badge.astro';
+import type { PostListItemProps } from '@/types';
+import { Badge } from '@/components/ui/badge';
 import FormattedDate from '@/components/FormattedDate.astro';
 import { slugify } from '@/utils/common-utils';
 
-type Props = {
-  post: CollectionEntry<'blog'>;
-  class?: string;
-  hideDate?: boolean;
-  hideTags?: boolean;
-};
-
-const { post, class: className, hideDate = false, hideTags = false } = Astro.props;
+const { post, class: className, hideDate = false, hideTags = false } = Astro.props as PostListItemProps;
 const { title, publishDate, tags = [] } = post.data;
 ---
 
@@ -31,7 +24,7 @@ const { title, publishDate, tags = [] } = post.data;
           {tags.length > 0 && (
             <>
               {tags.map((tag) => (
-                <Badge>
+                <Badge client:load>
                   <a href={`/tag/${slugify(tag)}`}>{tag}</a>
                 </Badge>
               ))}

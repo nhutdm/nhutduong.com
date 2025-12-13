@@ -15,7 +15,7 @@ const socialLinks = siteConfig.socialLinks || [];
   </div>
   {
     socialLinks.length > 0 && (
-      <div class="flex items-center">
+      <div class="flex items-center gap-2">
         {(siteConfig.socialLinks || []).map((link) => (
           <SocialLink {...link} />
         ))}

@@ -1,16 +1,9 @@
 ---
-import type { MarkdownHeading } from 'astro';
-
-import { generateToc } from '@/utils/toc-utils.ts';
+import type { TOCProps } from '@/types';
+import { generateToc } from '@/utils/toc-utils';
 import TOCHeading from './TOCHeading.astro';
 
-interface Props {
-  headings: MarkdownHeading[];
-  class?: string;
-  id?: string;
-}
-
-const { headings, class: className, ...props } = Astro.props;
+const { headings, class: className, ...props } = Astro.props as TOCProps;
 
 const toc = generateToc(headings);
 ---
