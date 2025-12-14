@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { createPersonSchema } from '@/utils/schema-utils';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -17,9 +18,12 @@ type Props = { page: CollectionEntry<'pages'> };
 const { page } = Astro.props;
 const { title, seo } = page.data;
 const { Content } = await render(page);
+
+const includePersonSchema = page.id === 'about';
+const customSchemas = includePersonSchema ? [createPersonSchema()] : [];
 ---
 
-<BaseLayout title={seo?.title ?? title} description={seo?.description} image={seo?.image}>
+<BaseLayout title={seo?.title ?? title} description={seo?.description} image={seo?.image} customSchemas={customSchemas}>
   <article>
     <header>
       <h1>{title}</h1>
