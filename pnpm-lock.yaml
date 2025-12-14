@@ -113,6 +113,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.7.2
         version: 0.7.2(prettier-plugin-astro@0.14.1)(prettier-plugin-organize-imports@4.3.0(prettier@3.7.4)(typescript@5.9.3))(prettier@3.7.4)
+      schema-dts:
+        specifier: ^1.1.5
+        version: 1.1.5
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -3074,6 +3077,10 @@ packages:
   scheduler@0.27.0:
     resolution:
       { integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q== }
+
+  schema-dts@1.1.5:
+    resolution:
+      { integrity: sha512-RJr9EaCmsLzBX2NDiO5Z3ux2BVosNZN5jo0gWgsyKvxKIUL5R3swNvoorulAeL9kLB0iTSX7V6aokhla2m7xbg== }
 
   semver@6.3.1:
     resolution:
@@ -6591,6 +6598,8 @@ snapshots:
   sax@1.4.3: {}
 
   scheduler@0.27.0: {}
+
+  schema-dts@1.1.5: {}
 
   semver@6.3.1: {}
 

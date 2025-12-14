@@ -2,20 +2,53 @@
 import '@fontsource-variable/inter';
 import '@fontsource-variable/newsreader';
 import { ClientRouter } from 'astro:transitions';
-import type { BaseHeadProps } from '@/types';
+import type { BaseHeadProps, WithContext, Thing } from '@/types';
 import BaseHead from '@/components/BaseHead.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
+import JsonLd from '@/components/JsonLd.astro';
+import siteConfig from '@/data/site-config';
+import { createWebSiteSchema, createWebPageSchema, createPersonSchema } from '@/utils/schema-utils';
 
-export type Props = BaseHeadProps;
+export type Props = BaseHeadProps & {
+  includePersonSchema?: boolean;
+  customSchemas?: WithContext<Thing>[];
+};
 
-const { ...head } = Astro.props;
+const props = Astro.props;
+const { includePersonSchema = false, customSchemas = [] } = props;
+const { ...head } = props;
+
+const siteUrl = Astro.site?.toString() || import.meta.env.SITE_URL || 'https://nhutduong.com';
+const canonicalUrl = new URL(
+  Astro.request.url,
+  Astro.site || import.meta.env.SITE_URL || 'https://nhutduong.com'
+).toString();
+
+const schemas: WithContext<Thing>[] = [
+  createWebSiteSchema(siteUrl),
+  createWebPageSchema(
+    canonicalUrl,
+    head.title || siteConfig.title,
+    head.description || siteConfig.description,
+    new Date()
+  ),
+];
+
+if (includePersonSchema) {
+  schemas.push(createPersonSchema());
+}
+
+if (customSchemas.length > 0) {
+  schemas.push(...customSchemas);
+}
 ---
 
 <!doctype html>
 <html lang="en" class="wrap-break-word antialiased">
   <head>
     <BaseHead {...head} />
+    <JsonLd schema={schemas} />
     <ClientRouter />
   </head>
   <body>

@@ -1,7 +1,11 @@
 import type { CollectionEntry } from 'astro:content';
+import type { Thing, WithContext } from 'schema-dts';
 
 // Re-export types from site-config for centralized access
 export type { Giscus, Hero, Image as SiteImage, Link as SiteLink, SocialLink } from '@/data/site-config';
+
+// Re-export schema-dts types
+export type { Thing, WithContext } from 'schema-dts';
 
 // Content collection types
 export type BlogPost = CollectionEntry<'blog'>;
@@ -41,3 +45,8 @@ export type TagData = {
   name: string;
   id: string;
 };
+
+// JSON-LD Schema types
+export interface JsonLdProps {
+  schema: WithContext<Thing> | WithContext<Thing>[];
+}
