@@ -8,15 +8,30 @@ import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
 import JsonLd from '@/components/JsonLd.astro';
 import siteConfig from '@/data/site-config';
+import {
+  generateBreadcrumbItems,
+  generateBreadcrumbStructuredData,
+  shouldShowBreadcrumbs,
+} from '@/utils/breadcrumb-utils';
+import { cn } from '@/lib/utils';
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 import { createWebSiteSchema, createWebPageSchema, createPersonSchema } from '@/utils/schema-utils';
 
 export type Props = BaseHeadProps & {
+  showBreadcrumbs?: boolean;
   includePersonSchema?: boolean;
   customSchemas?: WithContext<Thing>[];
 };
 
 const props = Astro.props;
-const { includePersonSchema = false, customSchemas = [] } = props;
+const { showBreadcrumbs = true, includePersonSchema = false, customSchemas = [] } = props;
 const { ...head } = props;
 
 const siteUrl = Astro.site?.toString() || import.meta.env.SITE_URL || 'https://nhutduong.com';
@@ -24,6 +39,10 @@ const canonicalUrl = new URL(
   Astro.request.url,
   Astro.site || import.meta.env.SITE_URL || 'https://nhutduong.com'
 ).toString();
+
+const shouldShow = showBreadcrumbs && shouldShowBreadcrumbs(Astro.url.pathname);
+const breadcrumbItems = shouldShow ? await generateBreadcrumbItems(Astro.url.pathname) : [];
+const breadcrumbStructuredData = shouldShow ? generateBreadcrumbStructuredData(breadcrumbItems) : null;
 
 const schemas: WithContext<Thing>[] = [
   createWebSiteSchema(siteUrl),
@@ -49,12 +68,39 @@ if (customSchemas.length > 0) {
   <head>
     <BaseHead {...head} />
     <JsonLd schema={schemas} />
+    {
+      breadcrumbStructuredData && (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbStructuredData)} />
+      )
+    }
     <ClientRouter />
   </head>
   <body>
     <div class="flex min-h-screen flex-col px-4 md:px-8">
       <Header />
       <main class="prose sm:prose-lg mx-auto w-full max-w-5xl grow py-20 sm:py-24 lg:py-32">
+        {
+          shouldShow && (
+            <div class="not-prose mb-8">
+              <Breadcrumb className={cn('py-2')} client:load>
+                <BreadcrumbList>
+                  {breadcrumbItems.map((item, index) => (
+                    <>
+                      <BreadcrumbItem>
+                        {item.href ? (
+                          <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+                        ) : (
+                          <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                        )}
+                      </BreadcrumbItem>
+                      {index < breadcrumbItems.length - 1 && <BreadcrumbSeparator />}
+                    </>
+                  ))}
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          )
+        }
         <slot />
       </main>
       <Footer />
