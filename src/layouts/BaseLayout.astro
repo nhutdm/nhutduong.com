@@ -42,7 +42,9 @@ const canonicalUrl = new URL(
 
 const shouldShow = showBreadcrumbs && shouldShowBreadcrumbs(Astro.url.pathname);
 const breadcrumbItems = shouldShow ? await generateBreadcrumbItems(Astro.url.pathname) : [];
-const breadcrumbStructuredData = shouldShow ? generateBreadcrumbStructuredData(breadcrumbItems) : null;
+const breadcrumbStructuredData = shouldShow
+  ? generateBreadcrumbStructuredData(breadcrumbItems, Astro.url.pathname, siteUrl)
+  : null;
 
 const schemas: WithContext<Thing>[] = [
   createWebSiteSchema(siteUrl),

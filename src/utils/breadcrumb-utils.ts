@@ -147,15 +147,25 @@ export function shouldShowBreadcrumbs(path: string): boolean {
 /**
  * Generate structured data for SEO
  */
-export function generateBreadcrumbStructuredData(items: BreadcrumbItem[]) {
+export function generateBreadcrumbStructuredData(items: BreadcrumbItem[], currentPath: string, baseUrl?: string) {
+  const siteUrl = baseUrl || import.meta.env.SITE_URL || 'https://nhutduong.com';
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.label,
-      item: item.href || undefined,
-    })),
+    itemListElement: items.map((item, index) => {
+      const listItem: {
+        '@type': 'ListItem';
+        position: number;
+        name: string;
+        item: string;
+      } = {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.label,
+        item: item.href ? new URL(item.href, siteUrl).toString() : new URL(currentPath, siteUrl).toString(),
+      };
+      return listItem;
+    }),
   };
 }
