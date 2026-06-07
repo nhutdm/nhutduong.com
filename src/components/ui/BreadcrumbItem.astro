@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'li'>;
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<li class:list={['inline-flex items-center gap-1.5', className]} {...rest}>
+  <slot />
+</li>

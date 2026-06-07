@@ -85,8 +85,17 @@ const toc = generateToc(headings);
         });
       });
 
-      setInterval(this.updatePositionAndStyle, 100);
-      window.addEventListener('scroll', this.updatePositionAndStyle);
+      let raf = 0;
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          this.updatePositionAndStyle();
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      this.updatePositionAndStyle();
     }
   }
 

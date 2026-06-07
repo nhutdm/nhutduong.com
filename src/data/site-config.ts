@@ -45,7 +45,7 @@ const siteConfig: SiteConfig = {
   author: 'Nhut Duong',
   twitter: '@nhutdm',
   image: {
-    src: '/og.png',
+    src: '/og.webp',
     alt: 'Nhut Duong - Full Stack Developer and Consultant in Ho Chi Minh City, Vietnam',
   },
   primaryNavLinks: [

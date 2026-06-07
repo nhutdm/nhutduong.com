@@ -1,6 +1,8 @@
 import { OGImageRoute } from 'astro-og-canvas';
 import { getCollection } from 'astro:content';
 
+export const prerender = true;
+
 const posts = await getCollection('blog');
 
 const pages = Object.fromEntries(posts.map(({ data, id }) => [id, { data }]));

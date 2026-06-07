@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'nav'> & {
+  separator?: unknown;
+};
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<nav aria-label="breadcrumb" class:list={[className]} {...rest}>
+  <slot />
+</nav>

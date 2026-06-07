@@ -13,13 +13,13 @@ Concise guide for OpenCode sessions working in `nhutduong.com`. Optimized for sp
 
 ## Commands (run from repo root)
 
-| Task | Command |
-| --- | --- |
-| Dev server | `pnpm dev` |
-| Production build (runs typecheck) | `pnpm build` |
-| Preview built site | `pnpm preview` |
-| Fast local verification | `pnpm check` |
-| Auto-fix lint + format | `pnpm fix` |
+| Task                              | Command        |
+| --------------------------------- | -------------- |
+| Dev server                        | `pnpm dev`     |
+| Production build (runs typecheck) | `pnpm build`   |
+| Preview built site                | `pnpm preview` |
+| Fast local verification           | `pnpm check`   |
+| Auto-fix lint + format            | `pnpm fix`     |
 
 - `pnpm check` chains `check:astro && check:eslint && check:prettier`. Use it before pushing; it is much faster than a full `pnpm build`.
 - `pnpm build` is `astro check && astro build`, so type errors fail the build. There is no separate `test` script — there are no tests in this repo.

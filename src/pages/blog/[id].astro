@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import type { BlogPost } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { Badge } from '@/components/ui/badge';
+import Badge from '@/components/ui/Badge.astro';
 import Comments from '@/components/Comments.astro';
 import FormattedDate from '@/components/FormattedDate.astro';
 import TOC from '@/components/TOC.astro';
@@ -38,6 +38,7 @@ const blogPostingSchema = createBlogPostingSchema(post, postUrl, authorSchema);
   image={seo?.image ?? ogImage}
   pageType="article"
   customSchemas={[blogPostingSchema]}
+  preconnect={['https://giscus.app']}
 >
   <div>
     <h1>{title}</h1>
@@ -60,7 +61,7 @@ const blogPostingSchema = createBlogPostingSchema(post, postUrl, authorSchema);
           tags.length > 0 && (
             <>
               {tags.map((tag) => (
-                <Badge client:load>
+                <Badge>
                   <a href={`/tags/${slugify(tag)}`}>{tag}</a>
                 </Badge>
               ))}

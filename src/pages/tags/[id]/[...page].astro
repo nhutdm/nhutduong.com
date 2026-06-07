@@ -15,20 +15,15 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
     return paginate(filteredPosts, {
       params: { id: tag.id },
       pageSize: 10,
+      props: { tag },
     });
   });
 }
 
-type Props = { page: Page<BlogPost> };
+type Props = { page: Page<BlogPost>; tag: TagData };
 
-const { page } = Astro.props;
+const { page, tag: currentTag } = Astro.props;
 const blog = page.data;
-const params = Astro.params;
-const allPosts = await getCollection('blog');
-const allTags = getAllTags(allPosts);
-const currentTag = allTags.find((tag) => {
-  return tag.id === params.id;
-});
 ---
 
 <BaseLayout

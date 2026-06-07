@@ -1,6 +1,4 @@
 ---
-import '@fontsource-variable/inter';
-import '@fontsource-variable/newsreader';
 import { ClientRouter } from 'astro:transitions';
 import type { BaseHeadProps, WithContext, Thing } from '@/types';
 import BaseHead from '@/components/BaseHead.astro';
@@ -14,14 +12,12 @@ import {
   shouldShowBreadcrumbs,
 } from '@/utils/breadcrumb-utils';
 import { cn } from '@/lib/utils';
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import BreadcrumbList from '@/components/ui/BreadcrumbList.astro';
+import BreadcrumbItem from '@/components/ui/BreadcrumbItem.astro';
+import BreadcrumbLink from '@/components/ui/BreadcrumbLink.astro';
+import BreadcrumbPage from '@/components/ui/BreadcrumbPage.astro';
+import BreadcrumbSeparator from '@/components/ui/BreadcrumbSeparator.astro';
 import { createWebSiteSchema, createWebPageSchema, createPersonSchema } from '@/utils/schema-utils';
 
 export type Props = BaseHeadProps & {
@@ -79,12 +75,14 @@ if (customSchemas.length > 0) {
   </head>
   <body>
     <div class="flex min-h-screen flex-col px-4 md:px-8">
-      <Header />
+      <div transition:persist>
+        <Header />
+      </div>
       <main class="prose sm:prose-lg mx-auto w-full max-w-5xl grow py-20 sm:py-24 lg:py-32">
         {
           shouldShow && (
             <div class="not-prose mb-8">
-              <Breadcrumb className={cn('py-2')} client:load>
+              <Breadcrumb class={cn('py-2')}>
                 <BreadcrumbList>
                   {breadcrumbItems.map((item, index) => (
                     <>
@@ -105,7 +103,9 @@ if (customSchemas.length > 0) {
         }
         <slot />
       </main>
-      <Footer />
+      <div transition:persist>
+        <Footer />
+      </div>
     </div>
   </body>
 </html>

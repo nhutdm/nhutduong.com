@@ -18,6 +18,7 @@ export interface BaseHeadProps extends Record<string, unknown> {
   twitter?: string;
   image?: { src: string; alt?: string };
   pageType?: 'website' | 'article';
+  preconnect?: string[];
 }
 
 export interface PostListItemProps extends Record<string, unknown> {
