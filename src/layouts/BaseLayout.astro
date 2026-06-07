@@ -2,6 +2,7 @@
 import { ClientRouter } from 'astro:transitions';
 import type { BaseHeadProps, WithContext, Thing } from '@/types';
 import BaseHead from '@/components/BaseHead.astro';
+import BackToTop from '@/components/BackToTop.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
 import JsonLd from '@/components/JsonLd.astro';
@@ -11,7 +12,6 @@ import {
   generateBreadcrumbStructuredData,
   shouldShowBreadcrumbs,
 } from '@/utils/breadcrumb-utils';
-import { cn } from '@/lib/utils';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 import BreadcrumbList from '@/components/ui/BreadcrumbList.astro';
 import BreadcrumbItem from '@/components/ui/BreadcrumbItem.astro';
@@ -24,10 +24,11 @@ export type Props = BaseHeadProps & {
   showBreadcrumbs?: boolean;
   includePersonSchema?: boolean;
   customSchemas?: WithContext<Thing>[];
+  lang?: string;
 };
 
 const props = Astro.props;
-const { showBreadcrumbs = true, includePersonSchema = false, customSchemas = [] } = props;
+const { showBreadcrumbs = true, includePersonSchema = false, customSchemas = [], lang = 'en' } = props;
 const { ...head } = props;
 
 const siteUrl = Astro.site?.toString() || import.meta.env.SITE_URL || 'https://nhutduong.com';
@@ -62,7 +63,7 @@ if (customSchemas.length > 0) {
 ---
 
 <!doctype html>
-<html lang="en" class="wrap-break-word antialiased">
+<html lang={lang} class="wrap-break-word antialiased">
   <head>
     <BaseHead {...head} />
     <JsonLd schema={schemas} />
@@ -73,16 +74,25 @@ if (customSchemas.length > 0) {
     }
     <ClientRouter />
   </head>
-  <body>
+  <body class="bg-background text-foreground min-h-screen">
+    <a
+      href="#main"
+      class="bg-primary text-primary-foreground focus-visible:ring-ring sr-only fixed top-0 left-0 z-50 block w-full rounded-none px-4 py-3 text-center text-sm font-medium shadow focus:not-sr-only focus-visible:ring-2 focus-visible:outline-none sm:top-4 sm:left-4 sm:w-auto sm:rounded-md"
+    >
+      Skip to content
+    </a>
     <div class="flex min-h-screen flex-col px-4 md:px-8">
       <div transition:persist>
         <Header />
       </div>
-      <main class="prose sm:prose-lg mx-auto w-full max-w-5xl grow py-20 sm:py-24 lg:py-32">
+      <main
+        id="main"
+        class="prose sm:prose-lg mx-auto w-full max-w-5xl grow pt-6 pb-12 sm:pt-8 sm:pb-14 lg:pt-10 lg:pb-16"
+      >
         {
           shouldShow && (
-            <div class="not-prose mb-8">
-              <Breadcrumb class={cn('py-2')}>
+            <div class="not-prose mb-6">
+              <Breadcrumb class="py-2">
                 <BreadcrumbList>
                   {breadcrumbItems.map((item, index) => (
                     <>
@@ -107,5 +117,6 @@ if (customSchemas.length > 0) {
         <Footer />
       </div>
     </div>
+    <BackToTop />
   </body>
 </html>

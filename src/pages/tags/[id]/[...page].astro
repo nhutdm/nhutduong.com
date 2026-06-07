@@ -31,9 +31,42 @@ const blog = page.data;
   description={`Explore ${currentTag?.name} topics with insights, guides, and tips from a full stack developer. Ideal for developers and tech enthusiasts looking to learn more.`}
 >
   <section>
-    <h1>{currentTag?.name}</h1>
-    <ul class="not-prose flex flex-col gap-10">
-      {blog.map((post) => <PostListItem post={post} hideTags={true} class="flex flex-col gap-1" />)}
+    <header class="mx-auto max-w-3xl">
+      <h1 class="mt-0 text-3xl sm:text-4xl">{currentTag?.name}</h1>
+      <p class="text-foreground/70 m-0 mt-2 text-base sm:text-lg">
+        {blog.length}
+        {blog.length === 1 ? 'post' : 'posts'} tagged with <span class="font-medium">{currentTag?.name}</span>.
+      </p>
+    </header>
+    <ul class="not-prose mx-auto mt-10 flex max-w-3xl flex-col gap-6">
+      {
+        blog.map((post) => (
+          <PostListItem post={post} hideTags={true} class="border-border border-b pb-6 last:border-0 last:pb-0" />
+        ))
+      }
     </ul>
   </section>
+  {
+    page.url.prev || page.url.next ? (
+      <nav class="not-prose mx-auto mt-10 flex max-w-3xl items-center justify-between text-sm" aria-label="Pagination">
+        {page.url.prev ? (
+          <a href={page.url.prev} class="hover:text-foreground/80 transition-colors">
+            ← Newer posts
+          </a>
+        ) : (
+          <span />
+        )}
+        <span class="text-foreground/60">
+          Page {page.currentPage} of {page.lastPage}
+        </span>
+        {page.url.next ? (
+          <a href={page.url.next} class="hover:text-foreground/80 transition-colors">
+            Older posts →
+          </a>
+        ) : (
+          <span />
+        )}
+      </nav>
+    ) : null
+  }
 </BaseLayout>

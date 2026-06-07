@@ -80,12 +80,12 @@ export async function generateBreadcrumbItems(path: string): Promise<BreadcrumbI
     }
   }
 
-  // Limit to maximum 3 levels (Home + 2 more)
-  if (items.length > 3) {
+  if (items.length > 4) {
     return [
-      items[0], // Home
-      items[items.length - 2], // Second to last
-      items[items.length - 1], // Last (current)
+      items[0],
+      { label: '…', href: undefined, isCurrent: false },
+      items[items.length - 2]!,
+      items[items.length - 1]!,
     ];
   }
 

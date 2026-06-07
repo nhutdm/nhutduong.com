@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import siteConfig from '@/data/site-config';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
+import Icon from '@/components/Icon.astro';
 import PostListItem from '@/components/PostListItem.astro';
 import { sortItemsByDateDesc } from '@/utils/data-utils';
 
@@ -15,11 +16,20 @@ const latestPosts = posts.slice(0, 5);
   <Hero />
   {
     latestPosts?.length > 0 && (
-      <section>
-        <h2>Recent Posts</h2>
-        <ul class="not-prose flex flex-col gap-5">
+      <section id="recent-posts" class="mt-10 scroll-mt-20 sm:mt-12">
+        <div class="not-prose mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <h2 class="m-0 text-2xl">Recent Posts</h2>
+          <a
+            href="/blog"
+            class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors"
+          >
+            View all
+            <Icon icon="arrow-right" class="h-3.5 w-3.5" />
+          </a>
+        </div>
+        <ul class="not-prose mx-auto flex max-w-3xl flex-col gap-5">
           {latestPosts.map((post) => (
-            <PostListItem post={post} hideTags={true} class="flex flex-col justify-between gap-1 md:flex-row" />
+            <PostListItem post={post} hideTags={true} class="border-border border-b pb-5 last:border-0 last:pb-0" />
           ))}
         </ul>
       </section>

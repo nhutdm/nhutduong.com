@@ -1,0 +1,30 @@
+---
+import Icon from '@/components/Icon.astro';
+---
+
+<button
+  type="button"
+  id="back-to-top"
+  aria-label="Back to top"
+  data-visible="false"
+  class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring fixed right-4 bottom-4 z-30 inline-flex h-10 w-10 items-center justify-center rounded-full shadow-md transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none data-[visible=false]:pointer-events-none data-[visible=false]:translate-y-2 data-[visible=false]:scale-95 data-[visible=false]:opacity-0 motion-reduce:transition-none"
+>
+  <Icon icon="arrow-up" class="h-4 w-4" />
+</button>
+
+<script>
+  function initBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    const onScroll = () => {
+      btn.dataset.visible = window.scrollY > 600 ? 'true' : 'false';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initBackToTop);
+</script>

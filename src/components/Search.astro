@@ -1,0 +1,205 @@
+---
+import Icon from '@/components/Icon.astro';
+---
+
+<button
+  type="button"
+  id="search-toggle"
+  aria-label="Open search"
+  class="hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-9 w-9 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:outline-none"
+>
+  <Icon icon="search" class="h-4 w-4" />
+</button>
+
+<div
+  id="search-panel"
+  data-open="false"
+  class="bg-background/95 supports-[backdrop-filter]:bg-background/80 fixed inset-0 z-50 hidden backdrop-blur"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Search"
+>
+  <div class="mx-auto mt-16 w-full max-w-2xl px-4 sm:mt-24">
+    <div class="border-border bg-background overflow-hidden rounded-xl border shadow-lg">
+      <div class="flex items-center gap-2 border-b px-4">
+        <Icon icon="search" class="text-foreground/60 h-4 w-4 shrink-0" />
+        <input
+          id="search-input"
+          type="search"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Search posts…"
+          class="placeholder:text-foreground/40 h-12 w-full border-0 bg-transparent text-sm focus:outline-none"
+        />
+        <kbd
+          class="border-border bg-muted text-muted-foreground hidden rounded border px-1.5 py-0.5 font-mono text-[10px] sm:inline-block"
+        >
+          ESC
+        </kbd>
+      </div>
+      <div id="search-results" class="max-h-[60vh] overflow-y-auto p-2" aria-live="polite"></div>
+      <div class="text-foreground/50 border-t px-3 py-2 text-xs">
+        <span id="search-status">Type to search</span>
+      </div>
+    </div>
+    <button
+      type="button"
+      id="search-close"
+      class="hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring absolute top-4 right-4 inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors focus-visible:ring-1 focus-visible:outline-none"
+      aria-label="Close search"
+    >
+      <Icon icon="close" class="h-5 w-5" />
+    </button>
+  </div>
+</div>
+
+<template id="search-result-template">
+  <a class="hover:bg-accent block rounded-md p-3" href="#">
+    <div class="text-foreground text-sm font-medium"></div>
+    <div class="text-foreground/60 mt-1 line-clamp-2 text-xs"></div>
+  </a>
+</template>
+
+<script>
+  type SearchEntry = {
+    id: string;
+    title: string;
+    excerpt: string;
+    tags: string[];
+    publishDate: string;
+    url: string;
+    body: string;
+  };
+
+  function scoreEntry(entry: SearchEntry, tokens: string[]): number {
+    const titleLower = entry.title.toLowerCase();
+    const tagLower = entry.tags.join(' ').toLowerCase();
+    const bodyLower = entry.body.toLowerCase();
+
+    let score = 0;
+    for (const token of tokens) {
+      if (!token) continue;
+      if (titleLower.includes(token)) score += 10;
+      if (tagLower.includes(token)) score += 5;
+      if (bodyLower.includes(token)) score += 1;
+    }
+    return score;
+  }
+
+  function highlight(text: string, tokens: string[]): string {
+    let safe = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    for (const token of tokens) {
+      if (!token) continue;
+      const re = new RegExp(`(${token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      safe = safe.replace(re, '<mark>$1</mark>');
+    }
+    return safe;
+  }
+
+  async function initSearch() {
+    const toggle = document.getElementById('search-toggle');
+    const panel = document.getElementById('search-panel');
+    const close = document.getElementById('search-close');
+    const input = document.getElementById('search-input') as HTMLInputElement | null;
+    const results = document.getElementById('search-results');
+    const status = document.getElementById('search-status');
+    const template = document.getElementById('search-result-template') as HTMLTemplateElement | null;
+    if (!toggle || !panel || !close || !input || !results || !status || !template) return;
+
+    let index: SearchEntry[] = [];
+    let indexPromise: Promise<SearchEntry[]> | null = null;
+
+    const loadIndex = () => {
+      if (index.length) return Promise.resolve(index);
+      if (!indexPromise) {
+        indexPromise = fetch('/search-index')
+          .then((r) => r.json() as Promise<SearchEntry[]>)
+          .then((data) => {
+            index = data;
+            return data;
+          })
+          .catch(() => {
+            index = [];
+            return [];
+          });
+      }
+      return indexPromise;
+    };
+
+    const setOpen = (open: boolean) => {
+      panel.dataset.open = open ? 'true' : 'false';
+      panel.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        void loadIndex();
+        requestAnimationFrame(() => input?.focus());
+      } else {
+        if (input) input.value = '';
+        results.innerHTML = '';
+        status.textContent = 'Type to search';
+      }
+    };
+
+    const render = (matches: SearchEntry[], tokens: string[]) => {
+      results.innerHTML = '';
+      if (matches.length === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'text-foreground/60 px-3 py-6 text-center text-sm';
+        empty.textContent = 'No matches found.';
+        results.appendChild(empty);
+        status.textContent = '0 results';
+        return;
+      }
+      status.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'}`;
+      const frag = document.createDocumentFragment();
+      matches.slice(0, 8).forEach((entry) => {
+        const node = template.content.firstElementChild!.cloneNode(true) as HTMLAnchorElement;
+        node.href = entry.url;
+        const titleEl = node.querySelector('div')!;
+        const descEl = node.querySelectorAll('div')[1]!;
+        const description = entry.excerpt || entry.body.slice(0, 160);
+        titleEl.innerHTML = highlight(entry.title, tokens);
+        descEl.innerHTML = highlight(description, tokens);
+        frag.appendChild(node);
+      });
+      results.appendChild(frag);
+    };
+
+    const onInput = () => {
+      const query = (input.value || '').trim().toLowerCase();
+      if (!query) {
+        results.innerHTML = '';
+        status.textContent = 'Type to search';
+        return;
+      }
+      const tokens = query.split(/\s+/).filter(Boolean);
+      const matches = index
+        .map((entry) => ({ entry, score: scoreEntry(entry, tokens) }))
+        .filter((m) => m.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map((m) => m.entry);
+      render(matches, tokens);
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && panel.dataset.open === 'true') {
+        setOpen(false);
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setOpen(panel.dataset.open !== 'true');
+      }
+    };
+
+    toggle.addEventListener('click', () => setOpen(panel.dataset.open !== 'true'));
+    close.addEventListener('click', () => setOpen(false));
+    panel.addEventListener('click', (e) => {
+      if (e.target === panel) setOpen(false);
+    });
+    input.addEventListener('input', onInput);
+    document.addEventListener('keydown', onKey);
+  }
+
+  document.addEventListener('astro:page-load', initSearch);
+</script>

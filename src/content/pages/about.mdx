@@ -6,13 +6,13 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import avatar from '../../assets/avatar.png';
+import avatar from '@/assets/avatar.png';
 
 <Image
-  class="mx-auto mb-10 w-56 rounded-md shadow-lg grayscale transition duration-150 hover:scale-105 hover:shadow-2xl hover:grayscale-0 sm:float-right sm:ml-6 sm:w-48 sm:rotate-2 sm:hover:rotate-3"
+  class="mx-auto mb-6 w-40 rounded-md shadow-lg grayscale transition duration-150 hover:scale-105 hover:shadow-2xl hover:grayscale-0 motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:hover:rotate-2 sm:float-right sm:mb-4 sm:ml-6 sm:w-56 sm:rotate-2 sm:hover:rotate-3"
   src={avatar}
-  widths={[192, 384, 750]}
-  sizes="(min-width: 640px) 12rem, 14rem"
+  widths={[160, 384, 750]}
+  sizes="(min-width: 640px) 14rem, 10rem"
   alt="Nhut Duong - Full Stack Developer and Consultant in Ho Chi Minh City, Vietnam"
   title="Nhut Duong - Full Stack Developer and Consultant in Ho Chi Minh City, Vietnam"
   loading="lazy"

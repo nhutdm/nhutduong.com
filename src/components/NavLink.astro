@@ -6,7 +6,27 @@ type Props = HTMLAttributes<'a'>;
 const { href, class: className, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
-const isActive = href === pathname || href === pathname.replace(/\/$/, '');
+const normalizedHref = href ?? '';
+const normalizedPath = pathname.replace(/\/$/, '') || '/';
+
+let isActive: boolean;
+if (normalizedHref === '/blog') {
+  isActive = normalizedPath === '/blog' || normalizedPath.startsWith('/blog/');
+} else if (normalizedHref === '/tags') {
+  isActive = normalizedPath === '/tags' || normalizedPath.startsWith('/tags/');
+} else {
+  isActive = normalizedHref === normalizedPath;
+}
 ---
 
-<a class:list={[className, isActive ? 'text-foreground' : 'text-foreground/60']} href={href} {...props}><slot /></a>
+<a
+  class:list={[
+    'hover:text-foreground relative inline-flex h-9 items-center text-sm transition-colors',
+    isActive ? 'text-foreground' : 'text-foreground/60',
+    'after:bg-foreground after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded-full after:opacity-0 after:transition-opacity',
+    isActive && 'after:opacity-100',
+    className,
+  ]}
+  href={href}
+  {...props}><slot /></a
+>

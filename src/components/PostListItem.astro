@@ -3,35 +3,66 @@ import type { PostListItemProps } from '@/types';
 import Badge from '@/components/ui/Badge.astro';
 import FormattedDate from '@/components/FormattedDate.astro';
 import { slugify } from '@/utils/common-utils';
+import { readingTime, formatReadingTime } from '@/utils/reading-utils';
 
-const { post, class: className, hideDate = false, hideTags = false } = Astro.props as PostListItemProps;
-const { title, publishDate, tags = [] } = post.data;
+const {
+  post,
+  class: className,
+  hideDate = false,
+  hideTags = false,
+  hideExcerpt = false,
+  variant = 'stack',
+} = Astro.props as PostListItemProps;
+
+const { title, publishDate, excerpt, tags = [] } = post.data;
+const postUrl = `/blog/${post.id}/`;
+const minutes = readingTime(post.body);
+const showReadingTime = minutes > 1;
+const isRow = variant === 'row';
 ---
 
 <li class:list={[className]}>
-  <span class="font-medium"><a href={`/blog/${post.id}/`}>{title}</a></span>
-  <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-    {
-      !hideDate && (
-        <span class="text-foreground/60 text-sm">
-          <FormattedDate date={publishDate} />
-        </span>
-      )
-    }
-    {
-      !hideTags && (
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-          {tags.length > 0 && (
-            <>
+  <article class:list={['group/post flex flex-col gap-2', isRow && 'sm:flex-row sm:items-baseline sm:gap-6']}>
+    <div class="flex flex-col gap-1.5">
+      <h3 class="m-0 text-base font-medium tracking-tight sm:text-lg">
+        <a class="hover:text-foreground/80 transition-colors" href={postUrl}>{title}</a>
+      </h3>
+      {!hideExcerpt && excerpt && <p class="text-foreground/70 m-0 line-clamp-2 text-sm">{excerpt}</p>}
+    </div>
+    <div class="text-foreground/60 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
+      {
+        !hideDate && (
+          <time datetime={publishDate.toISOString()}>
+            <FormattedDate date={publishDate} />
+          </time>
+        )
+      }
+      {
+        !hideDate && showReadingTime && (
+          <>
+            <span aria-hidden="true" class="text-foreground/40">
+              ·
+            </span>
+            <span>{formatReadingTime(minutes)}</span>
+          </>
+        )
+      }
+      {
+        !hideTags && tags.length > 0 && (
+          <>
+            <span aria-hidden="true" class="text-foreground/40">
+              ·
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
               {tags.map((tag) => (
-                <Badge>
+                <Badge variant="outline" class="text-foreground/70 px-2 py-0 text-xs font-normal">
                   <a href={`/tags/${slugify(tag)}`}>{tag}</a>
                 </Badge>
               ))}
-            </>
-          )}
-        </div>
-      )
-    }
-  </div>
+            </div>
+          </>
+        )
+      }
+    </div>
+  </article>
 </li>

@@ -3,18 +3,40 @@ import GitHub from '@/icons/GitHub.astro';
 import LinkedIn from '@/icons/LinkedIn.astro';
 import RSS from '@/icons/RSS.astro';
 import X from '@/icons/X.astro';
+import Sun from '@/icons/Sun.astro';
+import Moon from '@/icons/Moon.astro';
+import Menu from '@/icons/Menu.astro';
+import Close from '@/icons/Close.astro';
+import ArrowUp from '@/icons/ArrowUp.astro';
+import ArrowRight from '@/icons/ArrowRight.astro';
+import ArrowLeft from '@/icons/ArrowLeft.astro';
+import Search from '@/icons/Search.astro';
+import Link from '@/icons/Link.astro';
+import Share from '@/icons/Share.astro';
+import MapPin from '@/icons/MapPin.astro';
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 
-const iconMap: { [key: string]: AstroComponentFactory } = {
+const iconMap: Record<string, AstroComponentFactory> = {
   github: GitHub,
   linkedin: LinkedIn,
   rss: RSS,
   x: X,
+  sun: Sun,
+  moon: Moon,
+  menu: Menu,
+  close: Close,
+  'arrow-up': ArrowUp,
+  'arrow-right': ArrowRight,
+  'arrow-left': ArrowLeft,
+  search: Search,
+  link: Link,
+  share: Share,
+  'map-pin': MapPin,
 };
 
 const { icon, class: className } = Astro.props;
 
-const IconComponent = icon ? iconMap[icon] : null;
+const IconComponent = icon ? (iconMap[icon] ?? null) : null;
 ---
 
-{IconComponent && <IconComponent class={className} />}
+{IconComponent && <IconComponent class={className} aria-hidden="true" />}

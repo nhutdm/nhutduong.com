@@ -26,6 +26,8 @@ export interface PostListItemProps extends Record<string, unknown> {
   class?: string;
   hideDate?: boolean;
   hideTags?: boolean;
+  hideExcerpt?: boolean;
+  variant?: 'stack' | 'row';
 }
 
 export interface TOCProps extends Record<string, unknown> {

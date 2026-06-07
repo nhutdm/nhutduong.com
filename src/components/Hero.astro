@@ -1,14 +1,46 @@
 ---
+import { Image } from 'astro:assets';
 import siteConfig from '@/data/site-config';
+import Icon from '@/components/Icon.astro';
+import avatar from '@/assets/avatar.png';
 
 const hero = siteConfig.hero;
 ---
 
 {
   (hero?.title || hero?.text) && (
-    <section>
-      {hero.title && <h1>{hero.title}</h1>}
-      {hero.text && <p>{hero.text}</p>}
+    <section class="not-prose flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-6 lg:gap-8">
+      <Image
+        class="h-24 w-24 shrink-0 rounded-full object-cover shadow-md grayscale transition duration-300 hover:scale-105 hover:grayscale-0 motion-reduce:transition-none motion-reduce:hover:scale-100 sm:h-28 sm:w-28"
+        src={avatar}
+        widths={[96, 192]}
+        sizes="(min-width: 640px) 7rem, 6rem"
+        alt={`${siteConfig.author} avatar`}
+        loading="eager"
+        decoding="async"
+      />
+      <div class="flex-1">
+        {hero.title && <h1 class="mb-2 text-3xl sm:text-4xl">{hero.title}</h1>}
+        {hero.text && <p class="text-foreground/80 m-0 text-base sm:text-lg">{hero.text}</p>}
+        <p class="text-muted-foreground mt-3 flex items-center gap-1.5 text-sm">
+          <Icon icon="map-pin" class="h-4 w-4" />
+          <span>Ho Chi Minh City, Vietnam · Open to consulting</span>
+        </p>
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <a
+            href="#recent-posts"
+            class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-9 items-center justify-center gap-2 rounded-md px-4 text-sm font-medium whitespace-nowrap shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none"
+          >
+            Read the blog
+          </a>
+          <a
+            href="/about"
+            class="border-input bg-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-9 items-center justify-center gap-2 rounded-md border px-4 text-sm font-medium whitespace-nowrap shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none"
+          >
+            About me
+          </a>
+        </div>
+      </div>
     </section>
   )
 }

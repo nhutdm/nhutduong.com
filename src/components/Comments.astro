@@ -4,53 +4,79 @@ import siteConfig from '@/data/site-config';
 const giscusConfig = siteConfig.giscus;
 ---
 
-<div class="comments">
+<div class="comments mt-12" data-comments-host>
+  <div
+    data-giscus-placeholder
+    class="border-border bg-muted/30 text-muted-foreground flex h-32 items-center justify-center rounded-lg border text-sm"
+  >
+    Comments loading…
+  </div>
   <script is:inline data-astro-rerun define:vars={{ giscusConfig }}>
-    // Theme management utility
     const ThemeManager = {
-      getTheme(bToggle = false) {
-        const theme = localStorage.getItem('theme') || 'preferred_color_scheme';
-        return bToggle ? (theme === 'light' ? 'dark' : 'light') : theme;
+      getTheme() {
+        return (
+          localStorage.getItem('theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        );
       },
-
-      setTheme(bToggle = false) {
-        this.sendMessage({
-          setConfig: {
-            theme: this.getTheme(bToggle),
-          },
-        });
-      },
-
-      sendMessage(message) {
+      setTheme() {
         const iframe = document.querySelector('iframe.giscus-frame');
         if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: this.getTheme() } } }, 'https://giscus.app');
       },
     };
 
-    const getGiscusTheme = ThemeManager.getTheme.bind(ThemeManager);
-    const setGiscusTheme = ThemeManager.setTheme.bind(ThemeManager);
-    const giscusAttributes = {
-      src: 'https://giscus.app/client.js',
-      'data-repo': giscusConfig.repo,
-      'data-repo-id': giscusConfig.repoId,
-      'data-category': giscusConfig.category,
-      'data-category-id': giscusConfig.categoryId,
-      'data-mapping': giscusConfig.mapping,
-      'data-strict': '0',
-      'data-reactions-enabled': '1',
-      'data-emit-metadata': '0',
-      'data-input-position': 'top',
-      'data-theme': getGiscusTheme(),
-      'data-lang': 'en',
-      crossorigin: 'anonymous',
-      async: '',
-    };
-    const script = document.createElement('script');
-    Object.entries(giscusAttributes).forEach(([key, value]) => {
-      script.setAttribute(key, value);
-    });
-    document.querySelector('.comments').appendChild(script);
-    document.getElementById('theme-toggle')?.addEventListener('click', () => setGiscusTheme(true));
+    function loadGiscus() {
+      const host = document.querySelector('[data-comments-host]');
+      if (!host || host.dataset.loaded === '1') return;
+      host.dataset.loaded = '1';
+
+      const placeholder = host.querySelector('[data-giscus-placeholder]');
+      placeholder?.remove();
+
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      script.setAttribute('data-repo', giscusConfig.repo);
+      script.setAttribute('data-repo-id', giscusConfig.repoId);
+      script.setAttribute('data-category', giscusConfig.category);
+      script.setAttribute('data-category-id', giscusConfig.categoryId);
+      script.setAttribute('data-mapping', giscusConfig.mapping);
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'top');
+      script.setAttribute('data-theme', ThemeManager.getTheme());
+      script.setAttribute('data-lang', 'en');
+      host.appendChild(script);
+    }
+
+    function init() {
+      const host = document.querySelector('[data-comments-host]');
+      if (!host) return;
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                loadGiscus();
+                io.disconnect();
+                break;
+              }
+            }
+          },
+          { rootMargin: '200px' }
+        );
+        io.observe(host);
+      } else {
+        loadGiscus();
+      }
+
+      const toggle = document.getElementById('theme-toggle');
+      toggle?.addEventListener('click', () => ThemeManager.setTheme());
+    }
+
+    document.addEventListener('astro:page-load', init);
   </script>
 </div>

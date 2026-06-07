@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Badge from '@/components/ui/Badge.astro';
+import Icon from '@/components/Icon.astro';
 import { sortItemsByDateDesc, getAllTags, getPostsByTag } from '@/utils/data-utils';
 
 const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
@@ -20,41 +20,35 @@ const tagsWithCount = tags
   description="Explore topics I write about, from software development to web technologies. Click on any tag to discover related articles and insights."
 >
   <section>
-    <h1>Tags</h1>
-    <p>
-      Explore topics I write about, from software development to web technologies. Click on any tag to discover related
-      articles and insights.
-    </p>
-    <div class="grid gap-6">
-      <div>
-        <h2>All Tags ({tagsWithCount.length})</h2>
-        <div class="not-prose flex flex-wrap gap-2">
-          {
-            tagsWithCount.map((tag) => (
-              <Badge>
-                <a href={`/tags/${tag.id}/`}>{tag.name}</a>
-              </Badge>
-            ))
-          }
-        </div>
-      </div>
+    <header class="mx-auto max-w-3xl">
+      <h1 class="mt-0 text-3xl sm:text-4xl">Tags</h1>
+      <p class="text-foreground/70 m-0 mt-2 text-base sm:text-lg">
+        Explore topics I write about, from software development to web technologies. Click on any tag to discover
+        related articles and insights.
+      </p>
+    </header>
+    <ul class="not-prose mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2">
       {
-        tagsWithCount.length > 0 && (
-          <div>
-            <h2>Popular Tags</h2>
-            <div class="not-prose grid gap-3 sm:grid-cols-2 md:grid-cols-2">
-              {tagsWithCount.slice(0, 9).map((tag) => (
-                <a href={`/tags/${tag.id}/`} class="font-medium">
-                  <div class="flex items-center justify-between rounded-lg border p-3">
-                    {tag.name}
-                    <Badge>{tag.count}</Badge>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        )
+        tagsWithCount.map((tag) => (
+          <li>
+            <a
+              href={`/tags/${tag.id}/`}
+              class="hover:border-foreground/30 hover:bg-muted/50 group border-border flex items-center justify-between rounded-lg border p-4 transition-colors"
+            >
+              <div class="flex flex-col">
+                <span class="text-foreground font-medium">{tag.name}</span>
+                <span class="text-muted-foreground text-sm">
+                  {tag.count} {tag.count === 1 ? 'post' : 'posts'}
+                </span>
+              </div>
+              <Icon
+                icon="arrow-right"
+                class="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors"
+              />
+            </a>
+          </li>
+        ))
       }
-    </div>
+    </ul>
   </section>
 </BaseLayout>

@@ -125,6 +125,55 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  nav,
+  .comments,
+  #back-to-top,
+  #search-toggle,
+  .not-prose,
+  button {
+    display: none !important;
+  }
+  body {
+    color: #000;
+    background: #fff;
+  }
+  article a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    color: #555;
+  }
+  article h1,
+  article h2,
+  article h3,
+  article h4 {
+    break-after: avoid;
+  }
+  article p,
+  article li {
+    break-inside: avoid;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 @theme {
   --font-sans: 'Inter Variable', 'sans-serif';
   --font-serif: 'Newsreader Variable', 'serif';
