@@ -2,9 +2,7 @@
 import siteConfig from '@/data/site-config';
 import type { BaseHeadProps } from '@/types';
 import '@/styles/global.css';
-// Vite resolves these .woff2 imports to hashed asset URLs at build time.
-// The fontsource package does not ship .d.ts for its font files, so we cast
-// to `string` to satisfy `BaseHeadProps['...']`.
+import '@/styles/fonts.css';
 import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import newsreaderLatin from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url';
 
@@ -48,29 +46,6 @@ function formatCanonicalURL(url: string | URL) {
 <link rel="preload" href={interLatinUrl} as="font" type="font/woff2" crossorigin />
 <link rel="preload" href={newsreaderLatinUrl} as="font" type="font/woff2" crossorigin />
 {preconnect.map((href) => <link rel="preconnect" href={href} crossorigin="anonymous" />)}
-
-<style is:global>
-  @font-face {
-    font-family: 'Inter Variable';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 100 900;
-    src: url('{interLatinUrl}') format('woff2-variations');
-    unicode-range:
-      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191,
-      U+2193, U+2212, U+FEFF, U+FFFD;
-  }
-  @font-face {
-    font-family: 'Newsreader Variable';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 100 900;
-    src: url('{newsreaderLatinUrl}') format('woff2-variations');
-    unicode-range:
-      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191,
-      U+2193, U+2212, U+FEFF, U+FFFD;
-  }
-</style>
 
 <meta name="description" content={description} />
 <meta name="author" content={author} />
