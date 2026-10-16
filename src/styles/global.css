@@ -1,0 +1,216 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #f0ece3;
+  --foreground: #1c2644;
+  --primary: #1c2644;
+  --primary-foreground: #f0ece3;
+  --muted-foreground: #5b6377;
+  --border: #d7d1c3;
+  --ring: #9a7a44;
+  --radius: 0.25rem;
+  --gold: #c8a870;
+  --gold-text: #7a5f34;
+  --navy-alt: #232f55;
+  --bone: #e2dcd0;
+  color-scheme: light;
+}
+
+@source not "../../*.md";
+
+@theme inline {
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-source-serif);
+  --font-mono: var(--font-ibm-plex-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-text: var(--gold-text);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --default-transition-duration: 200ms;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply overflow-x-clip;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-clip;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-ring;
+  }
+
+  ::selection {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  :root {
+    scrollbar-color: var(--muted-foreground) transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    scroll-behavior: auto;
+    transition-duration: 0.01ms;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  [data-animate] {
+    opacity: 0;
+    animation: rise 420ms ease-out forwards;
+    animation-delay: calc(var(--i, 0) * 80ms);
+  }
+}
+
+.mono-label {
+  font-family: var(--font-ibm-plex-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.rule-gold {
+  height: 3px;
+  background: var(--gold);
+}
+
+@media (min-width: 768px) {
+  .mono-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+  }
+}
+
+.poster-name {
+  font-family: var(--font-source-serif);
+  font-weight: 700;
+  font-size: clamp(4.5rem, 11vw, 9.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+}
+
+.toc-link.highlight {
+  color: var(--gold-text);
+  font-weight: 500;
+}
+
+.toc-link.readed {
+  color: var(--muted-foreground);
+}
+
+.prose .grid > div > h2:first-child {
+  margin-top: 0;
+}
+
+.prose > .grid + h2 {
+  margin-top: 40px;
+}
+
+.prose {
+  font-size: 1rem;
+  line-height: 1.6;
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--foreground);
+  --tw-prose-links: var(--foreground);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--foreground);
+  --tw-prose-bullets: var(--foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--gold);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-pre-code: var(--bone);
+  --tw-prose-pre-bg: var(--navy-alt);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-source-serif);
+  font-weight: 700;
+}
+
+.prose :is(h2, h3, h4) {
+  scroll-margin-top: 1.5rem;
+}
+
+.prose :is(pre, :not(pre) > code) {
+  font-family: var(--font-ibm-plex-mono);
+}
+
+.prose pre.astro-code {
+  --astro-code-background: var(--navy-alt);
+  --astro-code-foreground: var(--bone);
+  --astro-code-token-comment: #98a1ba;
+  --astro-code-token-keyword: var(--gold);
+  --astro-code-token-string: #9fc4a4;
+  --astro-code-token-string-expression: #9fc4a4;
+  --astro-code-token-function: var(--background);
+  --astro-code-token-constant: #d9c08e;
+  --astro-code-token-parameter: var(--bone);
+  --astro-code-token-punctuation: var(--bone);
+  --astro-code-token-link: var(--gold);
+}
+
+.prose p {
+  text-wrap: pretty;
+}
+
+.prose .anchor-link {
+  @apply text-muted-foreground ml-1.5 font-normal no-underline opacity-0 transition-opacity;
+}
+
+.prose :is(h2, h3, h4):hover .anchor-link,
+.prose .anchor-link:focus-visible {
+  @apply opacity-100;
+}

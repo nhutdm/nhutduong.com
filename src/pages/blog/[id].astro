@@ -1,0 +1,141 @@
+---
+import { getCollection, render } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import Prose from "@/components/Prose.astro";
+import TOC from "@/components/TOC.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { BlogPost } from "@/types";
+import { slugify } from "@/utils/common-utils";
+import { sortItemsByDateDesc } from "@/utils/data-utils";
+import {
+  createBlogPostingSchema,
+  createPersonSchema,
+} from "@/utils/schema-utils";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
+  return posts.map((post, index) => ({
+    params: { id: post.id },
+    props: {
+      post,
+      newerPost: posts[index - 1] ?? null,
+      olderPost: posts[index + 1] ?? null,
+    },
+  }));
+}
+
+type Props = {
+  post: BlogPost;
+  newerPost: BlogPost | null;
+  olderPost: BlogPost | null;
+};
+
+const { post, newerPost, olderPost } = Astro.props;
+const { title, publishDate, updatedDate, excerpt, tags = [], seo } = post.data;
+
+const wordCount = post.body?.trim().split(/\s+/).length ?? 0;
+const readingTime = Math.max(1, Math.round(wordCount / 220));
+const ogImage = {
+  src: new URL(`og/${post.id}.png`, Astro.site).toString(),
+  alt: title,
+};
+const { Content, headings } = await render(post);
+
+const postUrl = new URL(`/blog/${post.id}/`, Astro.site).toString();
+const authorSchema = createPersonSchema();
+const blogPostingSchema = createBlogPostingSchema(post, postUrl, authorSchema);
+---
+
+<BaseLayout
+  title={seo?.title ?? title}
+  description={seo?.description ?? excerpt}
+  image={seo?.image ?? ogImage}
+  pageType="article"
+  lastModified={updatedDate ?? publishDate}
+  publishedTime={publishDate}
+  modifiedTime={updatedDate ?? publishDate}
+  tags={tags}
+  customSchemas={[blogPostingSchema]}
+>
+  <article>
+    <header>
+      <h1
+        class="font-serif text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.15] font-bold tracking-tight text-balance sm:leading-[1.08]"
+      >
+        {title}
+      </h1>
+      <div
+        class="mono-label text-muted-foreground mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-2"
+      >
+        <span class="whitespace-nowrap">
+          {updatedDate ? "Updated" : "Published"}
+          {" "}
+          <FormattedDate date={updatedDate ?? publishDate} format="short" />
+          {" ·"}
+        </span>
+        <span class="whitespace-nowrap">{readingTime} min read</span>
+        {tags.length > 0 && (
+          <span class="whitespace-nowrap">
+            {"· "}
+            {tags.map((tag, index) => (
+              <>
+                <a
+                  href={`/tags/${slugify(tag)}/`}
+                  class="transition-colors hover:text-foreground"
+                >
+                  {tag}
+                </a>
+                {index < tags.length - 1 && (
+                  <span class="text-gold-text" aria-hidden="true">
+                    ·
+                  </span>
+                )}
+              </>
+            ))}
+          </span>
+        )}
+      </div>
+      <div class="rule-gold mt-8" aria-hidden="true"></div>
+    </header>
+    <div class="mt-10 lg:flex lg:items-start lg:gap-12">
+      <TOC headings={headings} class="order-2 mb-8 lg:mb-0" />
+      <article class="max-w-[36rem]">
+        <div id="content">
+          <Prose>
+            <Content />
+          </Prose>
+        </div>
+      </article>
+    </div>
+  </article>
+
+  {(olderPost || newerPost) && (
+    <nav
+      aria-label="Post navigation"
+      class="mt-16 grid gap-8 border-t pt-8 sm:grid-cols-2"
+    >
+      {olderPost ? (
+        <a href={`/blog/${olderPost.id}/`} class="group">
+          <span class="mono-label text-muted-foreground transition-colors group-hover:text-foreground">
+            &larr; Older
+          </span>
+          <span class="font-serif mt-2 block text-lg font-semibold leading-snug decoration-gold underline-offset-4 group-hover:underline">
+            {olderPost.data.title}
+          </span>
+        </a>
+      ) : (
+        <span class="hidden sm:block" aria-hidden="true" />
+      )}
+      {newerPost && (
+        <a href={`/blog/${newerPost.id}/`} class="group sm:text-right">
+          <span class="mono-label text-muted-foreground transition-colors group-hover:text-foreground">
+            Newer &rarr;
+          </span>
+          <span class="font-serif mt-2 block text-lg font-semibold leading-snug decoration-gold underline-offset-4 group-hover:underline">
+            {newerPost.data.title}
+          </span>
+        </a>
+      )}
+    </nav>
+  )}
+</BaseLayout>

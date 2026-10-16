@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
+const isActive =
+  typeof href === "string" &&
+  (href === "/"
+    ? normalize(pathname) === "/"
+    : normalize(pathname).startsWith(normalize(href)));
+---
+
+<a
+  class:list={[
+    "mono-label inline-flex min-h-11 items-center border-b-2 pb-0.5 transition-colors",
+    className,
+    isActive
+      ? "border-gold font-medium text-foreground"
+      : "border-transparent text-muted-foreground hover:text-foreground",
+  ]}
+  href={href}
+  aria-current={isActive ? "page" : undefined}
+  {...props}
+  ><slot /></a
+>

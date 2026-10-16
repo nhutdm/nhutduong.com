@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions, Page } from "astro";
+import EntryRow from "@/components/EntryRow.astro";
+import Pagination from "@/components/Pagination.astro";
+import siteConfig from "@/data/site-config";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { BlogPost } from "@/types";
+import { sortItemsByDateDesc } from "@/utils/data-utils";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
+  return paginate(posts, { pageSize: 10 });
+}
+
+type Props = { page: Page<BlogPost> };
+
+const { page } = Astro.props;
+const blog = page.data;
+const all = (await getCollection("blog")).sort(sortItemsByDateDesc);
+const years = all.length
+  ? `${all[all.length - 1].data.publishDate.getFullYear()}–${all[0].data.publishDate.getFullYear()}`
+  : "";
+---
+
+<BaseLayout
+  title={page.currentPage > 1
+    ? `Blog ${siteConfig.titleSeparator} Page ${page.currentPage}`
+    : "Blog"}
+  description="Insights from a full stack developer and consultant. Explore tech tips, coding journeys, and advice for developers and tech enthusiasts."
+>
+  <header>
+    <h1
+      class="font-serif text-[clamp(2.75rem,6vw,4rem)] leading-none font-bold tracking-tight"
+    >
+      Writing<span class="text-gold">.</span>
+    </h1>
+    <p class="mono-label text-muted-foreground mt-5">
+      {`${all.length} essays · ${years} · latest first`}
+    </p>
+    <div class="rule-gold mt-8" aria-hidden="true"></div>
+  </header>
+  <section class="mt-2">
+    <ul data-animate-group>
+      {blog.map((post, index) => (
+        <EntryRow
+          post={post}
+          lead={page.currentPage === 1 && index === 0}
+          data-animate
+        />
+      ))}
+    </ul>
+    <Pagination page={page} />
+  </section>
+</BaseLayout>

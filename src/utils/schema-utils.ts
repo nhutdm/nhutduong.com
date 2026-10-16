@@ -1,0 +1,142 @@
+import type {
+  BlogPosting,
+  Person,
+  WebPage,
+  WebSite,
+  WithContext,
+} from "schema-dts";
+import siteConfig from "@/data/site-config";
+import type { BlogPost } from "@/types";
+
+function getSiteUrl(fallbackOrigin?: string): string {
+  const site = import.meta.env.SITE;
+  if (site) {
+    return site.endsWith("/") ? site : `${site}/`;
+  }
+  return fallbackOrigin || "https://nhutduong.com/";
+}
+
+export function createWebSiteSchema(url: string): WithContext<WebSite> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.title,
+    description: siteConfig.description,
+    url: url,
+    author: {
+      "@type": "Person",
+      name: siteConfig.author,
+    },
+    publisher: {
+      "@type": "Person",
+      name: siteConfig.author,
+    },
+  };
+}
+
+function isSelfDomainUrl(href: string): boolean {
+  try {
+    return new URL(href).hostname === new URL(getSiteUrl()).hostname;
+  } catch {
+    return false;
+  }
+}
+
+export function createPersonSchema(): WithContext<Person> {
+  const socialLinks = siteConfig.socialLinks || [];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: siteConfig.author,
+    jobTitle: "Full Stack Developer and Consultant",
+    worksFor: {
+      "@type": "Organization",
+      name: "Bosch Digital",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Ho Chi Minh City",
+      addressCountry: "Vietnam",
+    },
+    url: new URL("about/", getSiteUrl()).toString(),
+    sameAs: socialLinks
+      .map((link) => link.href)
+      .filter((href) => !isSelfDomainUrl(href)),
+    description: siteConfig.description,
+    knowsAbout: [
+      "Full Stack Development",
+      "Web Development",
+      "Frontend Development",
+      "Backend Development",
+      "Software Engineering",
+      "Technical Consulting",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "Astro",
+    ],
+  };
+}
+
+export function createWebPageSchema(
+  url: string,
+  title: string,
+  description: string,
+  dateModified?: Date,
+): WithContext<WebPage> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description: description,
+    url: url,
+    ...(dateModified ? { dateModified: dateModified.toISOString() } : {}),
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.title,
+      url: getSiteUrl(url),
+    },
+  };
+}
+
+export function createBlogPostingSchema(
+  post: BlogPost,
+  url: string,
+  authorSchema: WithContext<Person>,
+): WithContext<BlogPosting> {
+  const { title, excerpt, publishDate, updatedDate, tags = [] } = post.data;
+
+  const resolvedUrl = url.startsWith("http")
+    ? url
+    : new URL(url, getSiteUrl()).toString();
+  const blogUrl = resolvedUrl.endsWith("/") ? resolvedUrl : `${resolvedUrl}/`;
+  const blogBaseUrl = new URL("blog/", getSiteUrl()).toString();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: excerpt,
+    image: new URL(`og/${post.id}.png`, getSiteUrl()).toString(),
+    url: blogUrl,
+    datePublished: publishDate.toISOString(),
+    dateModified: (updatedDate || publishDate).toISOString(),
+    author: authorSchema,
+    publisher: {
+      "@type": "Person",
+      name: siteConfig.author,
+    },
+    isPartOf: {
+      "@type": "Blog",
+      name: `${siteConfig.title} Blog`,
+      url: blogBaseUrl,
+    },
+    keywords: tags.join(", "),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": blogUrl,
+    },
+  };
+}

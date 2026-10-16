@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import avatar from "@/assets/avatar.webp";
+import Prose from "@/components/Prose.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { createPersonSchema } from "@/utils/schema-utils";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages");
+  return pages.map((page) => {
+    return {
+      params: { id: page.id },
+      props: { page },
+    };
+  });
+}
+
+type Props = { page: CollectionEntry<"pages"> };
+
+const { page } = Astro.props;
+const { title, meta, noindex, wide, seo } = page.data;
+const { Content } = await render(page);
+
+const isAboutPage = page.id === "about";
+const customSchemas = isAboutPage ? [createPersonSchema()] : [];
+---
+
+<BaseLayout
+  title={seo?.title ?? title}
+  description={seo?.description}
+  image={seo?.image}
+  customSchemas={customSchemas}
+  noindex={noindex}
+>
+  <article>
+    <header>
+      <h1
+        class="font-serif text-[clamp(2.75rem,6vw,4rem)] leading-none font-bold tracking-tight"
+      >
+        {title}<span class="text-gold">.</span>
+      </h1>
+      {meta && <p class="mono-label text-muted-foreground mt-5">{meta}</p>}
+      <div class="rule-gold mt-8" aria-hidden="true"></div>
+    </header>
+    <div
+      class:list={[
+        "mt-10 flex flex-col gap-10",
+        isAboutPage && "lg:flex-row-reverse lg:items-start lg:gap-16",
+      ]}
+    >
+      {isAboutPage && (
+        <Image
+          class="mx-auto w-52 shrink-0 rounded-[4px] border border-border grayscale transition duration-200 hover:grayscale-0 lg:mt-1 lg:w-44"
+          src={avatar}
+          alt="Nhut Duong - Full Stack Developer and Consultant in Ho Chi Minh City, Vietnam"
+          title="Nhut Duong - Full Stack Developer and Consultant in Ho Chi Minh City, Vietnam"
+        />
+      )}
+      <div class:list={[wide ? "max-w-none" : "max-w-[36rem]"]}>
+        <Prose>
+          <Content />
+        </Prose>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

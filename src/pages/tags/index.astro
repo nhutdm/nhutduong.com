@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  getAllTags,
+  getPostsByTag,
+  sortItemsByDateDesc,
+} from "@/utils/data-utils";
+
+const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
+const tags = getAllTags(posts);
+
+const tagsWithCount = tags
+  .map((tag) => ({
+    ...tag,
+    count: getPostsByTag(posts, tag.id).length,
+  }))
+  .sort((a, b) => b.count - a.count);
+---
+
+<BaseLayout
+  title="Tags"
+  description="Explore topics I write about, from software development to web technologies. Click on any tag to discover related articles and insights."
+>
+  <header>
+    <h1
+      class="font-serif text-[clamp(2.25rem,5vw,3.5rem)] leading-none font-bold tracking-tight"
+    >
+      Topics<span class="text-gold">.</span>
+    </h1>
+    <p class="mono-label text-muted-foreground mt-5">
+      {`${tagsWithCount.length} topics · ${posts.length} essays`}
+    </p>
+    <div class="rule-gold mt-8" aria-hidden="true"></div>
+  </header>
+  <section class="mt-2">
+    <ul data-animate-group>
+      {tagsWithCount.map((tag) => (
+        <li
+          class="border-b border-border grid grid-cols-[1fr_auto] items-baseline py-5"
+          data-animate
+        >
+          <a
+            href={`/tags/${tag.id}/`}
+            class="font-serif text-xl font-semibold tracking-tight decoration-gold underline-offset-[6px] transition-colors hover:underline sm:text-[1.375rem]"
+          >
+            {tag.name}
+          </a>
+          <p class="mono-label text-muted-foreground">
+            {tag.count} <span class="sr-only">essays</span>
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

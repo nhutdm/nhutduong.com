@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions, Page } from "astro";
+import EntryRow from "@/components/EntryRow.astro";
+import Pagination from "@/components/Pagination.astro";
+import siteConfig from "@/data/site-config";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { BlogPost } from "@/types";
+import {
+  getAllTags,
+  getPostsByTag,
+  sortItemsByDateDesc,
+} from "@/utils/data-utils";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
+  const tags = getAllTags(posts);
+
+  return tags.flatMap((tag) => {
+    const filteredPosts = getPostsByTag(posts, tag.id);
+    return paginate(filteredPosts, {
+      params: { id: tag.id },
+      props: { tagName: tag.name },
+      pageSize: 10,
+    });
+  });
+}
+
+type Props = { page: Page<BlogPost>; tagName: string };
+
+const { page, tagName } = Astro.props;
+const blog = page.data;
+---
+
+<BaseLayout
+  title={page.currentPage > 1
+    ? `${tagName} ${siteConfig.titleSeparator} Page ${page.currentPage}`
+    : `${tagName}`}
+  description={`Insights, guides, and tips on ${tagName} from a full stack developer and consultant, for developers and tech enthusiasts.`}
+>
+  <header>
+    <p class="mono-label text-gold-text">Topic</p>
+    <h1
+      class="font-serif text-[clamp(2.25rem,5vw,3.5rem)] leading-none font-bold tracking-tight"
+    >
+      {tagName}
+    </h1>
+    <p class="mono-label text-muted-foreground mt-5">
+      {`${blog.length} ${blog.length === 1 ? "essay" : "essays"} · latest first`}
+    </p>
+    <div class="rule-gold mt-8" aria-hidden="true"></div>
+  </header>
+  <section class="mt-2">
+    <ul data-animate-group>
+      {blog.map((post, index) => (
+        <EntryRow post={post} hideTags lead={index === 0} data-animate />
+      ))}
+    </ul>
+    <Pagination page={page} />
+  </section>
+</BaseLayout>

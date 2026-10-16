@@ -1,0 +1,160 @@
+---
+import TOCList from "@/components/TOCList.astro";
+import type { TOCProps } from "@/types";
+import { generateToc } from "@/utils/toc-utils";
+
+const { headings, class: className, ...props } = Astro.props as TOCProps;
+
+const toc = generateToc(headings);
+---
+
+<nav
+  aria-label="Table of contents"
+  class:list={["lg:sticky lg:top-6", className]}
+  {...props}
+>
+  <details class="group rounded-[4px] border lg:hidden">
+    <summary
+      class="mono-label flex cursor-pointer select-none items-center justify-between px-4 py-3.5 text-muted-foreground transition-colors hover:text-foreground"
+    >
+      On this page
+      <svg
+        class="size-4 transition-transform duration-200 group-open:rotate-90"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m9 18 6-6-6-6"></path>
+      </svg>
+    </summary>
+    <TOCList headings={toc} class="px-4 pt-3 pb-5" />
+  </details>
+  <TOCList headings={toc} class="hidden pt-6 lg:block" />
+</nav>
+
+<script>
+interface TOCLink {
+  element: HTMLAnchorElement;
+  slug: string;
+}
+
+interface HeadingProgress {
+  inView: boolean;
+  progress: number;
+}
+
+class TOC extends HTMLElement {
+  headings: HTMLElement[] = [];
+  tocLinks: TOCLink[] = [];
+  headingProgress: Record<string, HeadingProgress> = {};
+  private content: HTMLElement | null = null;
+  private boundUpdate: (() => void) | null = null;
+  private ticking = false;
+
+  connectedCallback() {
+    this.content = document.querySelector<HTMLElement>("#content");
+    this.headings = Array.from(
+      document.querySelectorAll(
+        "article h2, article h3, article h4, article h5, article h6",
+      ),
+    );
+    this.tocLinks = Array.from(this.querySelectorAll('a[href^="#"]')).map(
+      (link) => ({
+        element: link as HTMLAnchorElement,
+        slug: (link.getAttribute("href") || "").substring(1),
+      }),
+    );
+
+    this.tocLinks.forEach((link) => {
+      link.element.addEventListener("click", (e) => {
+        e.preventDefault();
+        const heading = this.headings.find((h) => h.id === link.slug);
+        if (!heading) {
+          console.warn(`No heading found for slug: ${link.slug}`);
+          return;
+        }
+        history.pushState(null, "", link.element.getAttribute("href"));
+        this.closest("details")?.removeAttribute("open");
+        const reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        heading.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+        });
+      });
+    });
+
+    const requestUpdate = () => {
+      if (this.ticking) return;
+      this.ticking = true;
+      setTimeout(() => {
+        try {
+          this.updatePositionAndStyle();
+        } finally {
+          this.ticking = false;
+        }
+      }, 100);
+    };
+    this.boundUpdate = requestUpdate;
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    window.addEventListener("load", requestUpdate);
+
+    this.updatePositionAndStyle();
+  }
+
+  disconnectedCallback() {
+    if (this.boundUpdate) {
+      window.removeEventListener("scroll", this.boundUpdate);
+      window.removeEventListener("resize", this.boundUpdate);
+      window.removeEventListener("load", this.boundUpdate);
+      this.boundUpdate = null;
+    }
+  }
+
+  private docTop(el: HTMLElement): number {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
+  updatePositionAndStyle = () => {
+    if (!this.offsetParent) return;
+
+    const content = this.content;
+    if (!content) return;
+
+    const readingLine = window.scrollY + window.innerHeight * 0.2;
+    const contentBottom = this.docTop(content) + content.offsetHeight;
+
+    this.headings.forEach((heading, index) => {
+      const next = this.headings[index + 1];
+      const top = this.docTop(heading);
+      const nextTop = next ? this.docTop(next) : contentBottom;
+      const progress = (readingLine - top) / Math.max(nextTop - top, 1);
+      this.headingProgress[heading.id] = {
+        inView: readingLine >= top && readingLine < nextTop,
+        progress: Math.max(0, Math.min(1, progress)),
+      };
+    });
+
+    this.tocLinks.forEach(({ element: el, slug }) => {
+      const state = this.headingProgress[slug];
+      if (!state) return;
+      el.classList.toggle("highlight", state.inView);
+      el.classList.toggle("readed", !state.inView && state.progress === 1);
+      if (state.inView) {
+        el.setAttribute("aria-current", "true");
+      } else {
+        el.removeAttribute("aria-current");
+      }
+    });
+  };
+}
+
+customElements.define("toc-heading", TOC);
+</script>

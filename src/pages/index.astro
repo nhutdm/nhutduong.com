@@ -1,0 +1,87 @@
+---
+import { getCollection } from "astro:content";
+import EntryRow from "@/components/EntryRow.astro";
+import siteConfig from "@/data/site-config";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { sortItemsByDateDesc } from "@/utils/data-utils";
+
+const posts = (await getCollection("blog")).sort(sortItemsByDateDesc);
+const latestPosts = posts.slice(0, 4);
+const years = posts.length
+  ? `${posts[posts.length - 1].data.publishDate.getFullYear()}–${posts[0].data.publishDate.getFullYear()}`
+  : "";
+---
+
+<BaseLayout
+  title={`${siteConfig.title} ${siteConfig.titleSeparator} Full Stack Developer & Consultant`}
+  description={siteConfig.description}
+  image={siteConfig.image}
+  masthead="poster"
+  showBreadcrumbs={false}
+>
+  <section
+    class="pt-[clamp(3rem,9vh,6rem)] lg:pt-[clamp(4rem,12vh,8rem)]"
+    data-animate-group
+  >
+    <p class="mono-label text-gold-text" data-animate>
+      Full Stack Developer &amp; Consultant
+    </p>
+    <h1 class="poster-name mt-6" data-animate>
+      Nhut<br>Duong<span class="text-gold">.</span>
+    </h1>
+    <div
+      class="mono-label text-muted-foreground mt-8 flex flex-wrap items-baseline gap-x-6 gap-y-4"
+      data-animate
+    >
+      <span>
+        <span class="text-foreground">{"Applied AI "}</span>
+      </span>
+      <span class="text-gold-text max-lg:hidden" aria-hidden="true">· </span>
+      <span>{"Agentic Workflows "}</span>
+      <span class="text-gold-text max-lg:hidden" aria-hidden="true">· </span>
+      <span>Full Stack</span>
+    </div>
+  </section>
+
+  {latestPosts.length > 0 && (
+    <section class="mt-[clamp(3.5rem,8vw,6rem)]" data-animate-group>
+      <div class="rule-gold" aria-hidden="true"></div>
+      <div class="mt-8 mb-2 flex items-baseline justify-between">
+        <h2 class="mono-label font-medium text-foreground">Latest Writing</h2>
+        <p class="mono-label text-muted-foreground">
+          {`${posts.length} essays · ${years}`}
+        </p>
+      </div>
+      <ul data-animate-group>
+        {latestPosts.map((post, index) => (
+          <EntryRow post={post} lead={index === 0} data-animate />
+        ))}
+      </ul>
+      <a
+        href="/blog/"
+        class="mono-label text-muted-foreground mt-8 inline-block transition-colors hover:text-foreground"
+      >
+        All writing <span class="text-gold-text">&rarr;</span>
+      </a>
+    </section>
+  )}
+
+  <section class="mt-[clamp(3.5rem,8vw,6rem)]" data-animate-group>
+    <div class="border-t pt-8">
+      <p
+        class="font-serif text-xl italic text-muted-foreground sm:text-2xl"
+        data-animate
+      >
+        Still writing it down.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-x-8 gap-y-3" data-animate>
+        <a
+          href="/rss.xml"
+          class="mono-label text-gold-text transition-colors hover:text-foreground"
+        >
+          Subscribe — RSS
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

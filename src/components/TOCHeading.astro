@@ -1,0 +1,31 @@
+---
+import { cn } from "@/lib/utils";
+import type { TocItem } from "@/types";
+
+interface Props {
+  heading: TocItem;
+}
+
+const {
+  heading: { depth, slug, subheadings, text },
+} = Astro.props as Props;
+---
+
+<li>
+  <a
+    aria-label={`Scroll to section: ${text}`}
+    class={cn(
+      "toc-link line-clamp-2 py-1 flex-1 text-muted-foreground transition-colors hover:text-foreground",
+      depth > 2 && "ps-6",
+    )}
+    href={`#${slug}`}
+    >{text}</a
+  >
+  {!!subheadings.length && (
+    <ul class="mt-1.5 grid gap-2.5 ps-6">
+      {subheadings.map((subheading) => (
+        <Astro.self heading={subheading} />
+      ))}
+    </ul>
+  )}
+</li>

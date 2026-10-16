@@ -1,0 +1,63 @@
+---
+import siteConfig from "@/data/site-config";
+
+const currentYear = new Date().getFullYear();
+const socialLinks = siteConfig.socialLinks || [];
+---
+
+<footer class="mt-auto w-full border-t">
+  <div class="mx-auto w-full max-w-7xl px-6 py-8">
+    <div
+      class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between"
+    >
+      <div>
+        <div class="rule-gold mb-4 w-8" aria-hidden="true"></div>
+        <p class="mono-label text-muted-foreground">
+          &#169; {currentYear} {siteConfig.title}
+        </p>
+        <p class="mono-label text-muted-foreground mt-1.5">
+          A practitioner&rsquo;s journal · Set in Source Serif 4 &amp; DM Sans
+        </p>
+      </div>
+      {socialLinks.length > 0 && (
+        <nav
+          class="mono-label flex flex-wrap items-center gap-x-4 gap-y-2 lg:-mb-1.5"
+          aria-label="Social links"
+        >
+          {socialLinks.map((link, index) => (
+            <>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-muted-foreground py-1.5 transition-colors hover:text-foreground"
+              >
+                {link.text}
+              </a>
+              {index < socialLinks.length - 1 && (
+                <span class="text-gold-text" aria-hidden="true">
+                  ·
+                </span>
+              )}
+            </>
+          ))}
+        </nav>
+      )}
+    </div>
+    <p class="mono-label mt-5 flex flex-wrap items-center gap-x-3 gap-y-1">
+      <a
+        href="/privacy/"
+        class="text-muted-foreground py-1 transition-colors hover:text-foreground"
+      >
+        Privacy
+      </a>
+      <span class="text-gold-text" aria-hidden="true">·</span>
+      <a
+        href="/terms/"
+        class="text-muted-foreground py-1 transition-colors hover:text-foreground"
+      >
+        Terms
+      </a>
+    </p>
+  </div>
+</footer>

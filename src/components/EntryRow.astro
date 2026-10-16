@@ -1,0 +1,73 @@
+---
+import FormattedDate from "@/components/FormattedDate.astro";
+import type { BlogPost } from "@/types";
+import { slugify } from "@/utils/common-utils";
+
+interface Props {
+  post: BlogPost;
+  lead?: boolean;
+  hideTags?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  post,
+  lead = false,
+  hideTags = false,
+  class: className,
+  ...rest
+} = Astro.props;
+const { title, excerpt, publishDate, tags = [] } = post.data;
+---
+
+<li
+  class:list={[
+    "border-b border-border grid gap-x-6 gap-y-1 py-6 sm:grid-cols-[7.5rem_1fr] sm:items-baseline",
+    lead && "pt-2 sm:pt-2",
+    className,
+  ]}
+  {...rest}
+>
+  <p class="mono-label text-muted-foreground">
+    <FormattedDate date={publishDate} format="short" />
+  </p>
+  <div>
+    <a
+      href={`/blog/${post.id}/`}
+      class:list={[
+        "font-serif font-semibold tracking-tight text-foreground decoration-gold underline-offset-[6px] transition-colors hover:underline",
+        lead
+          ? "text-[1.75rem] leading-snug sm:text-[2.125rem]"
+          : "text-xl leading-snug sm:text-[1.375rem]",
+      ]}
+    >
+      {title}
+    </a>
+    {lead && excerpt && (
+      <p class="font-serif text-muted-foreground mt-3 max-w-[58ch] italic leading-relaxed">
+        {excerpt}
+      </p>
+    )}
+    {!hideTags && tags.length > 0 && (
+      <p class="mono-label text-muted-foreground mt-3">
+        {tags.map((tag, index) => (
+          <>
+            <a
+              href={`/tags/${slugify(tag)}/`}
+              class="py-1 transition-colors hover:text-foreground"
+            >
+              {tag}
+            </a>
+            {index < tags.length - 1 && (
+              <span class="text-gold-text" aria-hidden="true">
+                {" "}
+                ·{" "}
+              </span>
+            )}
+          </>
+        ))}
+      </p>
+    )}
+  </div>
+</li>
