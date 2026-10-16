@@ -1,0 +1,43 @@
+{
+  "title": "Choose the home composition",
+  "question": "The roll dealt three typography-led compositions for the home page, all inside the locked Signal world (navy / bone / gold, Source Serif 4). Each sketch shows the real first viewport with your real posts. Lock one.",
+  "options": [
+    {
+      "id": "dealt-ledger",
+      "kind": "assigned",
+      "label": "The Dispatch Ledger",
+      "kicker": "THE ROLL",
+      "lineage": "engineer's logbook x private-banking statement",
+      "thesis": "The archive is the hero: gold year numerals as section marks, each post a dated ledger row with mono metadata and hairline rules.",
+      "palette": ["#1c2644", "#e2dcd0", "#c8a870"],
+      "materials": ["ledger rules", "mono metadata", "italic standfirst"],
+      "viewport": "Navy full-bleed. Mono brand line and hairline gold rule, one italic standfirst sentence, then 2025 in huge gold serif with entries beneath, 2024 below.",
+      "risk": "Reads dry if entry rhythm is flat; the standfirst and excerpt on the lead entry must carry voice.",
+      "html": ".impeccable/mocks/decision/dealt-ledger.html"
+    },
+    {
+      "id": "dealt-contents",
+      "kind": "dealt",
+      "label": "The Contents Page",
+      "lineage": "literary journal front matter",
+      "thesis": "Home as a periodical's front page: centered serif nameplate with gold dot, gold double rule, numbered contents list with dates.",
+      "palette": ["#f0ece3", "#1c2644", "#c8a870"],
+      "materials": ["nameplate masthead", "double rule", "numbered TOC"],
+      "viewport": "Bone canvas. Corner metadata lines, huge centered Nhut Duong. masthead, gold double rule with nav, numbered essay list with lead entry enlarged.",
+      "risk": "The most classic take; centered masthead can feel static if the lead entry doesn't pull the eye down.",
+      "html": ".impeccable/mocks/decision/dealt-contents.html"
+    },
+    {
+      "id": "dealt-poster",
+      "kind": "dealt",
+      "label": "The Typographic Poster",
+      "lineage": "type-specimen poster",
+      "thesis": "The name at poster scale anchors the page; role in mono caps; writing lives in a bottom index strip — boldest scale contrast of the hand.",
+      "palette": ["#1c2644", "#e2dcd0", "#c8a870"],
+      "materials": ["oversized display serif", "mono caps metadata", "index strip"],
+      "viewport": "Navy full-bleed. Small mono top line, Nhut / Duong. set at ~170px serif, role row beneath, bottom third is the latest-writing index with the newest post largest.",
+      "risk": "The giant name centers the person over the writing; the index strip must keep essays primary.",
+      "html": ".impeccable/mocks/decision/dealt-poster.html"
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "have_yaml": true,
+  "blog": [
+    {
+      "file": "src/content/blog/2024-year-in-review-growth-innovation.md",
+      "slug": "2024-year-in-review-growth-innovation",
+      "ext": ".md",
+      "bytes": 5309,
+      "frontmatter": {
+        "title": "2024 Year in Review: Growth & Innovation",
+        "excerpt": "Reflecting on a transformative 2024, where I boosted customer satisfaction, achieved health goals, and started blogging to share career insights.",
+        "publishDate": "2024-12-29",
+        "tags": [
+          "Wrap Up"
+        ]
+      },
+      "body_words": 775,
+      "h2_count": 5,
+      "h3_count": 6,
+      "first_headings": [
+        "Professional Achievements",
+        "Revolutionizing User Experience",
+        "Technical Leadership and Project Management",
+        "Starting My Blogging Journey",
+        "Personal Growth",
+        "Creating Our Family Home"
+      ],
+      "has_code_blocks": false,
+      "component_imports": [],
+      "jsx_components_used": []
+    },
+    {
+      "file": "src/content/blog/2025-year-in-review-expansion-mastery.md",
+      "slug": "2025-year-in-review-expansion-mastery",
+      "ext": ".md",
+      "bytes": 8046,
+      "frontmatter": {
+        "title": "2025 Year in Review: Expansion & Mastery",
+        "excerpt": "Looking back at an extraordinary 2025, marked by technical breakthroughs, career advancement, and deepening family connections.",
+        "publishDate": "2025-12-27",
+        "tags": [
+          "Wrap Up"
+        ]
+      },
+      "body_words": 1179,
+      "h2_count": 5,
+      "h3_count": 7,
+      "first_headings": [
+        "Professional Achievements",
+        "Advancing SAP Expertise",
+        "Leading Next-Generation Solution",
+        "Expanding Technical Horizons",
+        "Personal Growth",
+        "Moving to a New Apartment"
+      ],
+      "has_code_blocks": false,
+      "component_imports": [],
+      "jsx_components_used": []
+    },
+    {
+      "file": "src/content/blog/clear-git-history-for-a-fresh-initial-commit.md",
+      "slug": "clear-git-history-for-a-fresh-initial-commit",
+      "ext": ".md",
+      "bytes": 3620,
+      "frontmatter": {
+        "title": "Clear Git History for a Fresh Initial Commit",
+        "excerpt": "A comprehensive guide to wiping Git commit history and starting fresh. Perfect for removing sensitive data or restructuring your development workflow.",
+        "publishDate": "2024-10-26",
+        "tags": [
+          "Git"
+        ]
+      },
+      "body_words": 503,
+      "h2_count": 9,
+      "h3_count": 5,
+      "first_headings": [
+        "The Challenge with Git History",
+        "Prerequisites",
+        "Method 1: Quick Reset for Local Repositories",
+        "Method 2: Using Filter-Branch (Advanced)",
+        "Important Considerations",
+        "1. Before You Start"
+      ],
+      "has_code_blocks": true,
+      "component_imports": [],
+      "jsx_components_used": []
+    },
+    {
+      "file": "src/content/blog/how-to-sync-your-fork-with-upstream-changes.md",
+      "slug": "how-to-sync-your-fork-with-upstream-changes",
+      "ext": ".md",
+      "bytes": 3001,
+      "frontmatter": {
+        "title": "How to Sync Your Fork with Upstream Changes",
+        "excerpt": "Keep your fork in sync with the upstream repository while preserving your commits — a step-by-step guide to rebasing and resolving conflicts.",
+        "publishDate": "2024-09-24",
+        "tags": [
+          "Git"
+        ]
+      },
+      "body_words": 428,
+      "h2_count": 4,
+      "h3_count": 6,
+      "first_headings": [
+        "Prerequisites",
+        "Step-by-Step Guide",
+        "1. Set Up the Upstream Remote",
+        "2. Fetch the Latest Upstream Changes",
+        "3. Switch to Your Main Branch",
+        "4. Rebase Your Branch"
+      ],
+      "has_code_blocks": true,
+      "component_imports": [],
+      "jsx_components_used": []
+    },
+    {
+      "file": "src/content/blog/how-to-zoom-out-iframes-using-css.md",
+      "slug": "how-to-zoom-out-iframes-using-css",
+      "ext": ".md",
+      "bytes": 3012,
+      "frontmatter": {
+        "title": "How to Zoom Out iframe Using CSS",
+        "excerpt": "Learn how to zoom out iframes with CSS transforms — resize embedded content without altering the source, with tips and key considerations.",
+        "publishDate": "2024-09-09",
+        "tags": [
+          "CSS"
+        ]
+      },
+      "body_words": 440,
+      "h2_count": 6,
+      "h3_count": 0,
+      "first_headings": [
+        "The Basic Technique",
+        "How It Works",
+        "Considerations and Potential Issues",
+        "Advanced Techniques",
+        "Browser Compatibility",
+        "Conclusion"
+      ],
+      "has_code_blocks": true,
+      "component_imports": [],
+      "jsx_components_used": []
+    },
+    {
+      "file": "src/content/blog/mastering-meetings-in-software-development.md",
+      "slug": "mastering-meetings-in-software-development",
+      "ext": ".md",
+      "bytes": 6033,
+      "frontmatter": {
+        "title": "Mastering Meetings in Software Development",
+        "excerpt": "Unlock the power of effective meetings with strategies to transform collaboration, boost productivity, and drive project success in tech teams.",
+        "publishDate": "2024-12-14",
+        "tags": [
+          "Software Development"
+        ]
+      },
+      "body_words": 801,
+      "h2_count": 6,
+      "h3_count": 7,
+      "first_headings": [
+        "The Unavoidable Reality of Collaborative Work",
+        "Why Meetings Matter More Than You Think",
+        "The Spectrum of Meeting Effectiveness",
+        "Types of Meetings in Software Development",
+        "Strategies for Meeting Excellence",
+        "For Individual Contributors"
+      ],
+      "has_code_blocks": false,
+      "component_imports": [],
+      "jsx_components_used": []
+    }
+  ],
+  "pages": [
+    {
+      "file": "src/content/pages/about.mdx",
+      "slug": "about",
+      "ext": ".mdx",
+      "bytes": 1793,
+      "frontmatter": {
+        "title": "About",
+        "seo": {
+          "title": "About",
+          "description": "Nhut Duong is a full stack developer and consultant in Ho Chi Minh City, passionate about tech, swimming, exploring, and a data hoarder who loves movies."
+        }
+      },
+      "body_words": 231,
+      "h2_count": 0,
+      "h3_count": 0,
+      "first_headings": [],
+      "has_code_blocks": false,
+      "component_imports": [
+        "avatar"
+      ],
+      "jsx_components_used": [
+        "Image"
+      ]
+    }
+  ]
+}

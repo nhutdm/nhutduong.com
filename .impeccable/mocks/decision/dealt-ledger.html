@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ledger — Nhut Duong</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1440px; height:900px; overflow:hidden; }
+  body { background:#1c2644; color:#e2dcd0; font-family:'DM Sans',sans-serif; }
+  .frame { width:1440px; height:900px; padding:40px 72px 36px; display:flex; flex-direction:column; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; padding-bottom:14px; border-bottom:1px solid rgba(200,168,112,.55); }
+  .brand { font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; color:#c8a870; text-transform:uppercase; }
+  .brand b { color:#e2dcd0; font-weight:500; }
+  .nav { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#e2dcd0; }
+  .nav span { margin-left:28px; }
+  .nav span.on { color:#c8a870; }
+  .standfirst { margin:26px 0 8px; font-family:'Source Serif 4',serif; font-style:italic; font-size:19px; color:rgba(226,220,208,.78); font-weight:400; }
+  .standfirst em { color:#c8a870; font-style:italic; }
+  .yearhead { display:flex; align-items:baseline; gap:24px; margin-top:22px; }
+  .yearnum { font-family:'Source Serif 4',serif; font-weight:700; font-size:64px; color:#c8a870; letter-spacing:-0.01em; }
+  .yearmeta { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(226,220,208,.55); }
+  .entry { display:grid; grid-template-columns:170px 1fr 90px; gap:28px; align-items:baseline; padding:19px 0; border-bottom:1px solid rgba(226,220,208,.14); }
+  .entry .date { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; color:#c8a870; }
+  .entry .title { font-family:'Source Serif 4',serif; font-weight:600; font-size:27px; color:#e2dcd0; letter-spacing:-0.005em; }
+  .entry .title small { display:block; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:400; color:rgba(226,220,208,.62); margin-top:5px; letter-spacing:0; max-width:760px; }
+  .entry .read { font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(226,220,208,.5); text-align:right; letter-spacing:.08em; }
+  .year2 { margin-top:26px; }
+  .year2 .yearnum { font-size:40px; }
+  .year2 .entry { padding:15px 0; }
+  .year2 .entry .title { font-size:22px; }
+  .foot { margin-top:auto; display:flex; justify-content:space-between; border-top:1px solid rgba(200,168,112,.55); padding-top:14px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:rgba(226,220,208,.6); }
+  .foot b { color:#c8a870; font-weight:500; }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="top">
+    <div class="brand"><b>Nhut Duong</b> — Full Stack Developer &amp; Consultant</div>
+    <div class="nav"><span class="on">Writing</span><span>About</span><span>RSS</span></div>
+  </div>
+  <p class="standfirst">Notes from fourteen years of building software — <em>git, CSS, teams, and the long game.</em></p>
+  <div class="yearhead">
+    <div class="yearnum">2025</div>
+    <div class="yearmeta">Volume II · Two dispatches</div>
+  </div>
+  <div class="entry">
+    <div class="date">DEC 27, 2025</div>
+    <div class="title">2025 Year in Review: Expansion &amp; Mastery<small>Technical breakthroughs, career advancement, and deepening family connections.</small></div>
+    <div class="read">6 MIN</div>
+  </div>
+  <div class="yearhead year2">
+    <div class="yearnum">2024</div>
+    <div class="yearmeta">Volume I · Four dispatches</div>
+  </div>
+  <div class="entry">
+    <div class="date">DEC 29, 2024</div>
+    <div class="title">2024 Year in Review: Growth &amp; Innovation</div>
+    <div class="read">6 MIN</div>
+  </div>
+  <div class="entry">
+    <div class="date">DEC 14, 2024</div>
+    <div class="title">Mastering Meetings in Software Development</div>
+    <div class="read">9 MIN</div>
+  </div>
+  <div class="entry">
+    <div class="date">OCT 26, 2024</div>
+    <div class="title">Clear Git History for a Fresh Initial Commit</div>
+    <div class="read">7 MIN</div>
+  </div>
+  <div class="foot">
+    <div>Ho Chi Minh City, Vietnam</div>
+    <div><b>Subscribe via RSS</b> · GitHub · LinkedIn</div>
+  </div>
+</div>
+</body>
+</html>
