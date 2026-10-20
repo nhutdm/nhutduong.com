@@ -37,4 +37,17 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { blog, pages };
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
+  schema: z.object({
+    title: z.string(),
+    tagline: z.string(),
+    kicker: z.string().default("Skill · 2026"),
+    stack: z.string(),
+    repo: z.string().url(),
+    order: z.number().default(0),
+    seo: seoSchema.optional(),
+  }),
+});
+
+export const collections = { blog, pages, projects };

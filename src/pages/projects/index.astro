@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) =>
+    b.data.order - a.data.order || a.data.title.localeCompare(b.data.title),
+);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Selected projects by Nhut Duong — Hermes Agent skills and tools, built in the open on GitHub."
+>
+  <article>
+    <header>
+      <h1
+        class="font-serif text-[clamp(2.75rem,6vw,4rem)] leading-none font-bold tracking-tight"
+      >
+        Projects<span class="text-gold">.</span>
+      </h1>
+      <p class="mono-label text-muted-foreground mt-5">
+        Selected work · Open source
+      </p>
+      <div class="rule-gold mt-8" aria-hidden="true"></div>
+    </header>
+    <div class="mt-10">
+      <p class="max-w-[58ch]">
+        Selected work, kept honest in the open — tools, CLIs, and sites I built
+        and still maintain. Everything here is open source; the full index lives
+        on{" "}
+        <a
+          href="https://github.com/nhutdm?tab=repositories"
+          class="decoration-gold underline-offset-[6px] transition-colors hover:underline"
+          >GitHub</a
+        >.
+      </p>
+      <div class="mt-8 border-t border-border" data-animate-group>
+        {projects.map((project) => (
+          <div
+            class="border-b border-border grid gap-x-6 gap-y-2 py-8 sm:grid-cols-[7.5rem_1fr] sm:items-baseline"
+            data-animate
+          >
+            <p class="mono-label text-muted-foreground">
+              {project.data.kicker}
+            </p>
+            <div>
+              <a
+                href={`/projects/${project.id}/`}
+                class="font-serif font-semibold tracking-tight text-foreground decoration-gold underline-offset-[6px] transition-colors hover:underline text-xl leading-snug sm:text-[1.375rem]"
+              >
+                {project.data.title}
+              </a>
+              <p class="font-serif text-muted-foreground mt-3 max-w-[58ch] italic leading-relaxed">
+                {project.data.tagline}
+              </p>
+              <p class="mono-label text-muted-foreground mt-3">
+                {project.data.stack}
+                <span class="text-gold-text" aria-hidden="true">
+                  {" · "}
+                </span>
+                <a
+                  href={project.data.repo}
+                  class="transition-colors hover:text-foreground"
+                >
+                  GitHub ↗
+                </a>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="mt-10 max-w-[58ch]">
+        This page trails the work — projects land here when they've earned a
+        write-up. The complete and current list lives on{" "}
+        <a
+          href="https://github.com/nhutdm?tab=repositories"
+          class="decoration-gold underline-offset-[6px] transition-colors hover:underline"
+          >GitHub</a
+        >.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
