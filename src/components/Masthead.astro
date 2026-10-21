@@ -5,11 +5,18 @@ import siteConfig from "@/data/site-config";
 
 const { variant = "page" } = Astro.props;
 const navLinks = siteConfig.primaryNavLinks || [];
+
+const { pathname } = Astro.url;
+const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
+const isActive = (href: string) =>
+  href === "/"
+    ? normalize(pathname) === "/"
+    : normalize(pathname).startsWith(normalize(href));
 ---
 
 <header class="w-full border-b">
   <div
-    class="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5"
+    class="mx-auto flex w-full max-w-7xl items-center justify-between gap-x-4 px-6 py-5"
   >
     {variant === "poster" ? (
       <p class="mono-label text-muted-foreground">
@@ -20,8 +27,109 @@ const navLinks = siteConfig.primaryNavLinks || [];
         <Logo />
       </a>
     )}
-    <nav class="flex items-center gap-5 lg:gap-7" aria-label="Primary">
+    <nav
+      class="hidden items-center gap-5 sm:flex lg:gap-7"
+      aria-label="Primary"
+    >
       {navLinks.map((link) => <NavLink href={link.href}>{link.text}</NavLink>)}
     </nav>
+    <details id="mobile-menu" class="menu-toggle relative sm:hidden">
+      <summary
+        class="mono-label flex min-h-11 items-center text-muted-foreground transition-colors hover:text-foreground"
+      >
+        Menu
+      </summary>
+      <div
+        class="menu-panel fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background px-6 pb-10 pt-5"
+      >
+        <div
+          class="flex items-center justify-between border-b border-border pb-5"
+        >
+          <a class="flex" aria-label={siteConfig.title} href="/">
+            <Logo />
+          </a>
+          <button
+            type="button"
+            class="mono-label flex min-h-11 min-w-11 items-center justify-end text-muted-foreground transition-colors hover:text-foreground"
+            data-menu-close
+          >
+            Close
+          </button>
+        </div>
+        <nav
+          class="mt-[max(3.5rem,12vh)] flex flex-col items-start gap-8"
+          aria-label="Mobile"
+        >
+          {navLinks.map((link, i) => (
+            <a
+              href={link.href}
+              class:list={[
+                "overlay-link",
+                "flex min-h-11 items-baseline gap-4 py-1 font-serif text-4xl font-bold leading-none",
+                isActive(link.href) ? "text-gold-text" : "text-foreground",
+              ]}
+              aria-current={isActive(link.href) ? "page" : undefined}
+            >
+              <span class="overlay-index mono-label text-gold-text">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              {link.text}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </details>
   </div>
 </header>
+
+<style>
+.menu-toggle > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.menu-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+.menu-toggle > summary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+:global(html:has(.menu-toggle[open])) {
+  overflow: hidden;
+}
+.overlay-index {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+}
+.overlay-link {
+  text-decoration: none;
+}
+.overlay-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+</style>
+
+<script>
+document.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
+  const menu = document.getElementById("mobile-menu");
+  if (!menu) return;
+  if (event.target.closest("[data-menu-close]")) {
+    menu.open = false;
+    menu.querySelector("summary")?.focus();
+    return;
+  }
+  if (event.target.closest('#mobile-menu nav[aria-label="Mobile"] a')) {
+    menu.open = false;
+  }
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  const menu = document.getElementById("mobile-menu");
+  if (menu?.open) {
+    menu.open = false;
+    menu.querySelector("summary")?.focus();
+  }
+});
+</script>

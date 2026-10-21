@@ -154,6 +154,10 @@
   margin-top: 40px;
 }
 
+.prose > .grid + p {
+  margin-top: 40px;
+}
+
 .prose {
   font-size: 1rem;
   line-height: 1.6;

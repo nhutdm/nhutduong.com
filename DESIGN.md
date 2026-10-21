@@ -27,8 +27,8 @@ spacing:
 components:
   rule-gold:
     height: 3px
-    width: 88px
     backgroundColor: "{colors.neutral}"
+    width: full container width under label headers; 88px on OG cards; 32px (w-8) in the footer
 ---
 
 ## Overview
@@ -97,7 +97,7 @@ Base corner radius: 4px (`--radius: 0.25rem`).
 
 - **Gold dot** — suffixes *label* titles only (`About.`, `404.`, the logo, the poster name). Essay titles never take the dot.
 - **Gold middots** — separate list tokens in mono meta lines (role row, footer socials, breadcrumbs); hidden when stacks wrap.
-- **Gold rule** — 3px × 88px, the major separator under label headers.
+- **Gold rule** — 3px, full container width, the major separator under label headers; 88px wide on OG cards; 32px (`w-8`) in the footer.
 - **OpenGraph cards** repeat the poster grammar: bone canvas, mono-caps kicker, serif title (dot on the name card only), gold rule, mono footer.
 
 ## Do's and Don'ts
