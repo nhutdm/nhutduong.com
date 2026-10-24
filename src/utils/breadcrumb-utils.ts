@@ -23,7 +23,12 @@ export async function generateBreadcrumbItems(
     const isLast = i === pathSegments.length - 1;
     const prevSegment = pathSegments[i - 1];
 
-    if (segment === "blog") {
+    if (/^\d+$/.test(segment)) {
+      items.push({
+        label: `Page ${segment}`,
+        href: undefined,
+      });
+    } else if (segment === "blog") {
       items.push({
         label: "Blog",
         href: isLast ? undefined : "/blog",
@@ -43,11 +48,6 @@ export async function generateBreadcrumbItems(
       const tagName = await getTagName(segment);
       items.push({
         label: tagName || formatLabel(segment),
-        href: undefined,
-      });
-    } else if (/^\d+$/.test(segment)) {
-      items.push({
-        label: `${segment}`,
         href: undefined,
       });
     } else {
