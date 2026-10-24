@@ -113,7 +113,9 @@ const isActive = (href: string) =>
 <script>
 document.addEventListener("click", (event) => {
   if (!(event.target instanceof Element)) return;
-  const menu = document.getElementById("mobile-menu");
+  const menu = document.getElementById(
+    "mobile-menu",
+  ) as HTMLDetailsElement | null;
   if (!menu) return;
   if (event.target.closest("[data-menu-close]")) {
     menu.open = false;
@@ -126,7 +128,9 @@ document.addEventListener("click", (event) => {
 });
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
-  const menu = document.getElementById("mobile-menu");
+  const menu = document.getElementById(
+    "mobile-menu",
+  ) as HTMLDetailsElement | null;
   if (menu?.open) {
     menu.open = false;
     menu.querySelector("summary")?.focus();
