@@ -1,91 +1,85 @@
 ---
 title: '2024 Year in Review: Growth & Innovation'
-excerpt: Reflecting on a transformative 2024, where I boosted customer satisfaction, achieved health goals, and started blogging to share career insights.
+excerpt: '2024 in review: turning a poorly rated enterprise product around, moving the family close to my parents, losing 9 kg, and finally starting this blog.'
 publishDate: '2024-12-29'
 tags:
   - Wrap Up
 ---
 
-2024 has been a year of transformation, filled with significant achievements both professionally and personally. This year marked key milestones in my career and personal life, and in this post, I'll reflect on the major moments that defined my year.
+2024 was a busy year, with real changes at work and at home. These are the moments that defined it.
 
 ## Professional Achievements
 
-### Revolutionizing User Experience
+### Fixing User Experience
 
-In 2024, I faced the challenge of low customer satisfaction ratings for our SAP-based enterprise solution. This led to an innovative approach to user feedback, where I:
+Customer satisfaction ratings for our SAP-based enterprise solution were low going into 2024, so I changed how we collect and act on user feedback:
 
 - Designed interactive feedback mechanisms at key touchpoints
-- Led comprehensive UI/UX improvement discussions
-- Shifted from passive feedback collection to active user engagement
+- Led UI/UX improvement discussions with the team
+- Shifted from passive feedback collection to actively asking users
 
-**Result:** Customer satisfaction ratings soared from 2.3 to 4.3 stars on our platform—a true testament to the power of user-centered innovation.
+**Result:** Customer satisfaction ratings went from 2.3 to 4.3 stars on our platform.
 
 ### Technical Leadership and Project Management
 
-As the non-SAP and cloud systems integration lead, I successfully managed multiple complex projects, ensuring high standards of delivery. Some highlights include:
+As the non-SAP and cloud systems integration lead, I ran several projects in parallel:
 
-- Successfully managing parallel integration projects
-- Gained knowledge on Java, Elasticsearch, and Spring Boot through collaborative sessions with colleagues in India
-- Developing Google Data Studio dashboards for real-time performance monitoring
+- Managing parallel integration projects
+- Learning Java, Elasticsearch, and Spring Boot in sessions with colleagues in India
+- Building Google Data Studio dashboards for real-time performance monitoring
 
-This was a year of strong teamwork, technical leadership, and consistent execution, all of which led to positive customer feedback and internal recognition.
+It was a year of good teamwork, and the work led to positive customer feedback and internal recognition.
 
-### Starting My Blogging Journey
+### Starting This Blog
 
-2024 was the year I finally started blogging, something I had been planning for a long time. Using the Astro framework hosted on Cloudflare Pages, I launched my personal website to share knowledge and insights related to my career and professional challenges. This journey has allowed me to connect with others, contribute to their growth, and further reflect on my own experiences.
+2024 was the year I finally started blogging, something I had been planning for a long time. Using the Astro framework hosted on Cloudflare Pages, I launched my personal website to write about my career and the professional challenges I run into.
 
 ## Personal Growth
 
 ### Creating Our Family Home
 
-On the personal side, 2024 marked an important milestone as my family and I moved into our own rental apartment near my parents' house. This transition allowed us to:
+My family and I moved into our own rental apartment near my parents' house. It let us:
 
-- Establish new family routines and traditions
-- Provide a nurturing space for our children to grow
-- Maintain strong ties with extended family
+- Set up new family routines
+- Give the kids a stable place to grow
+- Stay close to extended family
 
-This wasn't just a physical move; it was about creating a space for connection and new beginnings, strengthening our family's foundation.
+More than a physical move, it gave us a place of our own, near the people who matter.
 
-### Prioritizing Health and Wellness
+### Losing 9 kg
 
-Health was a major focus for me in 2024. Through consistent effort, I lost 9 kg, going from 75 kg to 66 kg. This transformation was largely thanks to a new weekend routine: swimming with my son. Not only did this activity improve my fitness, but it also deepened our bond, creating lasting memories together.
+Health was a major focus in 2024. I lost 9 kg, going from 75 kg to 66 kg, mostly thanks to a new weekend routine: swimming with my son. It improved my fitness and gave us a weekly ritual together.
 
-### Strategic Investments: Planning for the Future
+### An Apartment in Long An Province
 
-In 2024, I took a strategic step toward long-term financial stability by investing in a new apartment in Long An Province. This investment is about:
+I bought an apartment in Long An Province as a long-term investment:
 
-- Securing a long-term financial future
-- Taking advantage of emerging real estate opportunities
-- Establishing roots in a developing area with growth potential
+- Building toward long-term financial stability
+- Getting into real estate in an area that is still developing
+- Putting down roots in a place with growth potential
 
-This decision represents both a financial strategy and a long-term plan for my family's future.
+It is both a financial decision and part of the plan for my family's future.
 
-## Lessons Learned and Growth
+## Lessons Learned
 
-Looking back, 2024 taught me valuable lessons:
-
-- **Proactive problem-solving**: Addressing challenges head-on leads to rewarding outcomes
-- **Balancing priorities**: Balancing personal milestones with professional growth is essential
-- **Strategic planning**: Patience and adaptability are crucial when planning for the future
-- **Family connections**: Staying close to loved ones while fostering independence is a delicate but rewarding balance
+- **Proactive problem-solving**: facing problems head-on pays off
+- **Balancing priorities**: personal milestones and professional growth both need attention
+- **Patience**: planning for the future takes patience and adaptability
+- **Family connections**: staying close to loved ones while encouraging independence is a delicate balance
 
 ## Looking Forward to 2025
 
-As I reflect on 2024, I'm excited for what lies ahead in 2025. My goals include:
+My goals for 2025:
 
-- Leading research into next-generation SAP-based enterprise solution
-- Driving innovation in user experience with emerging technologies
-- Exploring new technical frontiers with my team
-- Further developing our family home and nurturing family bonds
-- Managing and monitoring our property investment
-- Getting SAP Certificates for SAP Fiori and SAP BTP to enhance my technical expertise
+- Leading research into our next-generation SAP-based enterprise solution
+- Improving user experience with emerging technologies
+- Exploring new technical territory with my team
+- Continuing to build our family home and spending time with family
+- Managing our property investment
+- Getting SAP Certificates for SAP Fiori and SAP BTP
 
-I look forward to embracing new opportunities, challenges, and milestones in the year ahead.
+## Thank You
 
-## Conclusion
+Thank you to my wife, who carried our family through the year, and to my children, who give me a reason for all of it. And to my colleagues: thank you for the collaboration and the shared work.
 
-2024 has been a year of significant growth, both professionally and personally. From enhancing user experiences at work to creating new foundations for my family, each step has been an important part of my journey. I am deeply thankful for the unwavering support from my wife, who has been my rock throughout the year, and my children, who bring joy and motivation to my life every day. To my colleagues, thank you for your collaboration, insights, and dedication, which have been instrumental in our shared success.
-
-I am truly grateful for the opportunities, lessons, and support that made it all possible.
-
-What about you? What were your biggest wins or lessons in 2024? I hope you take a moment to reflect on your own journey and celebrate how far you've come. Here's to an incredible 2025!
+If 2024 treated you well, I hope 2025 is even better.

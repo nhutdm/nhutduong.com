@@ -1,16 +1,16 @@
 ---
 title: How to Sync Your Fork with Upstream Changes
-excerpt: Keep your fork in sync with the upstream repository while preserving your commits — a step-by-step guide to rebasing and resolving conflicts.
+excerpt: 'Keep your fork in sync with the upstream repository while preserving your commits: rebasing your fork and resolving conflicts.'
 publishDate: '2024-09-24'
 tags:
   - Git
 ---
 
-When working with forked repositories, it's crucial to keep your fork up-to-date with the original (upstream) repository. This ensures you're working with the latest code and reduces the chances of conflicts when submitting pull requests. In this guide, we'll walk through the process of synchronizing your fork while preserving your own commits.
+When you work with forked repositories, keep your fork up-to-date with the original (upstream) repository. That way you work with the latest code and lower the chances of conflicts when submitting pull requests. This guide covers syncing a fork while preserving your own commits.
 
 ## Prerequisites
 
-Before we begin, make sure you have:
+Before you start, make sure you have:
 
 1. Git installed on your local machine
 2. A forked repository cloned to your local machine
@@ -89,8 +89,6 @@ git push origin main --force
 
 ## Conclusion
 
-By following these steps, you can keep your fork up-to-date with the upstream repository while preserving your own commits. This process helps maintain a clean Git history and makes it easier to contribute back to the original project.
+These steps keep your fork up-to-date with the upstream repository while preserving your own commits, and they keep your history clean and linear, which makes it easier to contribute back to the original project.
 
-Remember, while this method using rebase is powerful, it rewrites Git history. Always exercise caution, especially when working on shared branches.
-
-Happy coding and collaborating!
+Rebase rewrites Git history, so be careful with it on shared branches.
